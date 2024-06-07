@@ -8,6 +8,40 @@
         width: calc(100vw - 17px);
     }
 }
+@media (max-width: 640px) {
+    .content-itemDocument, .itemInfo-footer {
+        display: none;
+    }
+    .container-post {
+        display: flex;
+    }
+    .add-documents {
+        min-width: fit-content;
+        margin-bottom: 8px;
+    }
+    .post {
+        min-width: 200px;
+        margin-bottom: 8px;
+        margin-left: 6px;
+    }
+    .profile {
+        margin-top: 8px;
+    }
+}
+@media (max-width: 1024px) {
+    .post {
+        min-width: 250px;
+        max-width: 250px;
+    }
+}
+@media (min-width: 1024px) {
+    .content-itemDocument {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+}
 @media (min-width: 1536px) {
     .container-header, .container-main, .container-footer {
         width: 1510px;
@@ -24,13 +58,19 @@
     }
 }
 
+p, span, div, a {
+    font-size: clamp(0.75rem, 0.68rem + 0.2667vw, 1rem);
+}
+.title {
+    font-size: clamp(0.9375rem, 0.85rem + 0.3333vw, 1.25rem) !important;
+}
+.container-header {
+    font-size: 22px !important;
+}
+
 body {
     margin: 0;
 }
 .ck-editor__editable {
     min-height: 600px;
-}
-.documents {
-    max-height: 600px;
-    overflow-y: auto;
 }

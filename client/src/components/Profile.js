@@ -66,25 +66,25 @@ function Profile({setSignin, setSignup, value}) {
     }
 
     return (
-        <div className="profile basis-[20%] h-full bg-[#fafafa] lg:pl-2 font-semibold text-white">
+        <div className="profile basis-[20%] bg-[#fafafa] lg:pl-2 font-semibold text-white">
             <div className="user-profile flex">
-                <div className="signup-userProfile grow mr-1 flex justify-center items-center
+                <div className="title signup-userProfile grow mr-1 flex justify-center items-center
                 p-3 mb-2 bg-[#afb1c9] rounded-md hover:cursor-pointer hover:bg-[#bbbdd2] duration-150"
                 onClick={signIn}>Sign In</div>
-                <div className="signin-userProfile grow ml-1 flex justify-center items-center
+                <div className="title signin-userProfile grow ml-1 flex justify-center items-center
                 p-3 mb-2 bg-[#565c91] rounded-md hover:cursor-pointer hover:bg-[#696fa7] duration-150"
                 onClick={signUp}>Sign Up</div>
             </div>
-            <div className="importPost-profile p-3 flex justify-center items-center bg-[#937152] mb-2 rounded-md 
+            <div className="title importPost-profile p-3 flex justify-center items-center bg-[#937152] mb-2 rounded-md 
             hover:cursor-pointer hover:bg-[#a28161] duration-150"
             onClick={preview}>{state ? nameButton[1] : nameButton[0]}</div>
-            <div className="importPost-profile p-3 flex justify-center items-center bg-[#f2b843] mb-2 rounded-md 
+            <div className="title importPost-profile p-3 flex justify-center items-center bg-[#f2b843] mb-2 rounded-md 
             hover:cursor-pointer hover:bg-[#f7c563] duration-150"
             >Import</div>
-            <div className="exportPost-profile p-3 flex justify-center items-center bg-[#e7676a] mb-2 rounded-md 
+            <div className="title exportPost-profile p-3 flex justify-center items-center bg-[#e7676a] mb-2 rounded-md 
             hover:cursor-pointer hover:bg-[#ee7e80] duration-150"
             >Export</div>
-            <div className="savePost-profile p-3 flex justify-center items-center bg-[#57baa0] mb-2 rounded-md 
+            <div className="title savePost-profile p-3 flex justify-center items-center bg-[#57baa0] mb-2 rounded-md 
             hover:cursor-pointer hover:bg-[#6ccab1] duration-150"
             onClick={save}>Save</div>
         </div>

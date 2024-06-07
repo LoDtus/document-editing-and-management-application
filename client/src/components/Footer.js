@@ -3,17 +3,17 @@ import '../App.css'
 function Footer() {
     return (
         <footer className="flex justify-center">
-            <div className="container-footer px-10 mb-[50px] text-[#888888]">
-                <div className="first-footer lg:flex">
+            <div className="container-footer px-10 mb-[30px] text-[#888888]">
+                <div className="first-footer md:flex">
                     <div className="about-footer basis-2/6 mt-5">
-                        <p className='font-semibold text-[#292929] text-xl mb-2'>Project: Text Editor</p>
+                        <p className='title font-semibold text-[#292929] text-xl mb-2'>Project: Text Editor</p>
                         <p className='mb-1'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa rem minus veniam delectus quidem assumenda necessitatibus magni facilis inventore. Animi cum in quis voluptate dicta suscipit eum esse quasi minus?</p>
                         <span className='text-[#292929] font-semibold'>Source Code: </span>
                         <a className='underline underline-offset-2 hover:text-[#292929] duration-200' href='https://github.com/LoDtus'>here</a>
                     </div>
 
-                    <div className="otherProducts-footer basis-2/6 flex flex-col lg:items-center lg:mx-10 mt-5">
-                        <p className='font-semibold text-[#292929] text-xl mb-2'>Other Products</p>
+                    <div className="otherProducts-footer basis-2/6 flex flex-col md:items-center md:mx-10 mt-5">
+                        <p className='title font-semibold text-[#292929] text-xl mb-2'>Other Products</p>
                         <a
                             className='hover:text-[#292929] hover:font-semibold duration-200 mb-1'
                             href='https://github.com/LoDtus'>Sản phẩm</a>
@@ -26,23 +26,23 @@ function Footer() {
                     </div>
 
                     <div className="informations-footer basis-2/6 lg:flex flex-col items-end mt-5">
-                        <p className="font-semibold text-[#292929] text-xl mb-2">Informations</p>
+                        <p className="title font-semibold text-[#292929] text-xl mb-2">Informations</p>
                         <div className='flex items-center mb-1'>
-                            <span className='sm:hidden lg:inline mr-3'>Nguyễn Trung Long</span>
+                            <span className='itemInfo-footer sm:hidden lg:inline mr-3'>Nguyễn Trung Long</span>
                             <svg className='w-[18px] h-[18px] fill-[#888888]' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                             <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
                             </svg>
                             <span className='lg:hidden ml-3'>Nguyễn Trung Long</span>
                         </div>
                         <div className='flex items-center mb-1'>
-                            <span className='sm:hidden lg:inline mr-3'>nguyentrunglong.150903@gmail.com</span>
+                            <span className='itemInfo-footer sm:hidden lg:inline mr-3'>nguyentrunglong.150903@gmail.com</span>
                             <svg className='w-[18px] h-[18px] fill-[#888888]' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                             <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
                             </svg>
                             <span className='lg:hidden ml-3'>nguyentrunglong.150903@gmail.com</span>
                         </div>
                         <div className='flex items-center mb-1'>
-                            <span className='sm:hidden lg:inline mr-3'>Hoang Mai District, Hanoi, Vietnam</span>
+                            <span className='itemInfo-footer sm:hidden lg:inline mr-3'>Hoang Mai District, Hanoi, Vietnam</span>
                             <svg className='w-[18px] h-[18px] fill-[#888888]' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
                             <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/>
                             </svg>
