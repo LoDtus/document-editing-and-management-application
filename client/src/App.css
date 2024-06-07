@@ -1,0 +1,36 @@
+@media (max-width: 420px) {
+    .container-header, .container-main, .container-footer {
+        width: calc(100vw - 17px);
+    }
+}
+@media (min-width: 420px) {
+    .container-header, .container-main, .container-footer {
+        width: calc(100vw - 17px);
+    }
+}
+@media (min-width: 1536px) {
+    .container-header, .container-main, .container-footer {
+        width: 1510px;
+    }
+}
+@media (min-width: 1920px) {
+    .container-header, .container-main, .container-footer{
+        width: 1890px;
+    }
+}
+@media (min-width: 2560px) {
+    .container-header, .container-main, .container-footer {
+        width: 2540px;
+    }
+}
+
+body {
+    margin: 0;
+}
+.ck-editor__editable {
+    min-height: 600px;
+}
+.documents {
+    max-height: 600px;
+    overflow-y: auto;
+}

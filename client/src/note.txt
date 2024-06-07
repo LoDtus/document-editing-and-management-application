@@ -1,0 +1,6 @@
+Bắt đầu từ: 2/6 - 
+Các thư viện đã dùng:
+    - ckeditor5
+    - tailwind
+    - fontawsome
+    - route v6
