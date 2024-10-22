@@ -42,7 +42,7 @@ function App() {
                                 currentValue={currentValue}
                             />}    
                         />
-                        <Route path="/preview" 
+                        <Route path="/preview"
                             element={
                             <Preview
                                 value={value}

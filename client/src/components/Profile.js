@@ -8,7 +8,7 @@ function Profile({setSignin, setSignup, value}) {
     const nameButton = ['Preview', 'Continue Editing']
 
     function preview() {
-        setState(state ? false : true)
+        setState(!state)
         if (state) {
             navigate('/')
         }
