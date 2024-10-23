@@ -40,7 +40,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(String id) {
+    public void deleteById(String id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public List<String> findAllId() {
+        return repository.findAllId();
     }
 }
