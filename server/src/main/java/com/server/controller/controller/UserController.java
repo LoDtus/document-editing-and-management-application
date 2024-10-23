@@ -1,6 +1,8 @@
 package com.server.controller.controller;
 
+import com.server.model.entity.Role;
 import com.server.model.entity.User;
+import com.server.service.role.RoleService;
 import com.server.service.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +14,7 @@ import java.util.List;
 public class UserController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private UserService userService;
+    private RoleService roleService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -37,6 +40,12 @@ public class UserController {
             throw new IllegalArgumentException("User with this ID already exists!");
         } else {
             User dbUser = userService.save(user);
+
+            Role dbRole = new Role();
+            dbRole.setUser_id(user.getUser_id());
+            dbRole.setRole("GUEST");
+            roleService.save(dbRole);
+
             return dbUser;
         }
     }
