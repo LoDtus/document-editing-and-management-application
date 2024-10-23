@@ -1,5 +1,3 @@
-import '../App.css'
-
 function SignIn({signin, setSignin}) {
     function signIn() {
 

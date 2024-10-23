@@ -1,5 +1,3 @@
-import '../App.css'
-
 function Footer() {
     return (
         <footer className="flex justify-center">

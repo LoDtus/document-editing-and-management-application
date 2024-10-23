@@ -1,5 +1,3 @@
-import '../App.css'
-
 function Post() {
     return (
         <div className="post item-documents h-fit xl:flex p-4 sm:mb-3 lg:mb-2 bg-white border border-solid

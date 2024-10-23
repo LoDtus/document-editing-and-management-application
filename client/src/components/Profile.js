@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import '../App.css'
 import { useState } from 'react';
 
 function Profile({setSignin, setSignup, value}) {
@@ -66,7 +65,7 @@ function Profile({setSignin, setSignup, value}) {
     }
 
     return (
-        <div className="profile basis-[20%] bg-[#fafafa] lg:pl-2 font-semibold text-white">
+        <div className="profile basis-[17%] bg-[#fafafa] lg:pl-2 font-semibold text-white">
             <div className="user-profile flex">
                 <div className="title signup-userProfile grow mr-1 flex justify-center items-center
                 p-3 mb-2 bg-[#afb1c9] rounded-md hover:cursor-pointer hover:bg-[#bbbdd2] duration-150"
