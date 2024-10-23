@@ -73,7 +73,7 @@ import {
 } from 'ckeditor5';
 import 'ckeditor5/ckeditor5.css';
 
-export default function Ckeditor() {
+export default function Ckeditor({currentValue, setValue}) {
 	const editorContainerRef = useRef(null);
 	const editorMenuBarRef = useRef(null);
 	const editorToolbarRef = useRef(null);
@@ -320,6 +320,10 @@ export default function Ckeditor() {
 										}}
 										editor={DecoupledEditor}
 										config={editorConfig}
+										data={currentValue.current}
+										onBlur={(event, editor) => {
+											setValue(editor.getData());
+										}}
 									/>
 								)}
 							</div>

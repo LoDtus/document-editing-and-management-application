@@ -1,6 +1,9 @@
 package com.server.model.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,24 +14,20 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
-public class User {
+@Table (name = "roles")
+public class Role {
     @Id
-    @Column(name = "user_id")
+    @Column (name = "user_id")
     private String user_id;
 
-    @Column(name = "user_password")
-    private String user_password;
-
-    @Column(name = "active")
-    private int active;
+    @Column (name = "role")
+    private String role;
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Role{" +
                 "user_id='" + user_id + '\'' +
-                ", user_password='" + user_password + '\'' +
-                ", active=" + active +
+                ", role='" + role + '\'' +
                 '}';
     }
 }
