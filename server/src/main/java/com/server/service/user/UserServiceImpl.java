@@ -25,13 +25,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(String id) {
         Optional<User> result = repository.findById(id);
-        User user = null;
-        if (result.isPresent()) {
-            user = result.get();
-        } else {
-            throw new RuntimeException("Did not find user id - " + id);
-        }
-        return user;
+        return result.orElse(null);
     }
 
     @Override
@@ -42,10 +36,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteById(String id) {
         repository.deleteById(id);
-    }
-
-    @Override
-    public List<String> findAllId() {
-        return repository.findAllId();
     }
 }

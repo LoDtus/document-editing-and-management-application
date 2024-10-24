@@ -15,10 +15,11 @@ import java.util.Date;
 public class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "document_id")
     private int document_id;
 
     @Column(name = "user_id")
-    private int user_id;
+    private String user_id;
 
     @Column(name = "subject")
     private String subject;
@@ -32,7 +33,7 @@ public class Document {
     @Column(name = "create_at")
     private Date create_at;
 
-    public Document(int user_id, String subject, String content, String thumbnail, Date create_at) {
+    public Document(String user_id, String subject, String content, String thumbnail, Date create_at) {
         this.user_id = user_id;
         this.subject = subject;
         this.content = content;

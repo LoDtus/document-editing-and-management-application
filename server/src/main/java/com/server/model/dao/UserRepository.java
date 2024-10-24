@@ -9,6 +9,4 @@ import java.util.List;
 
 //@Repository
 public interface UserRepository extends JpaRepository<User, String> {
-    @Query("SELECT user_id from User")
-    List<String> findAllId();
 }

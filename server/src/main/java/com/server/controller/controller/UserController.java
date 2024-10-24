@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -16,8 +17,9 @@ public class UserController {
     private UserService userService;
     private RoleService roleService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @GetMapping("/users")
@@ -36,28 +38,28 @@ public class UserController {
 
     @PostMapping("/users")
     public User addUser(@RequestBody User user) {
-        if (userService.findAllId().contains(user.getUser_id())) {
+        User result = userService.findById(user.getUser_id());
+        if (result != null) {
             throw new IllegalArgumentException("User with this ID already exists!");
-        } else {
-            User dbUser = userService.save(user);
-
-            Role dbRole = new Role();
-            dbRole.setUser_id(user.getUser_id());
-            dbRole.setRole("GUEST");
-            roleService.save(dbRole);
-
-            return dbUser;
         }
+        User dbUser = userService.save(user);
+
+        Role dbRole = new Role();
+        dbRole.setUser_id(user.getUser_id());
+        dbRole.setRole("GUEST");
+        roleService.save(dbRole);
+
+        return dbUser;
     }
 
     @PutMapping("/users")
     public User saveUser(@RequestBody User user) {
-        if (userService.findAllId().contains(user.getUser_id())) {
-            throw new IllegalArgumentException("User with this ID already exists!");
-        } else {
-            User dbUser = userService.save(user);
-            return dbUser;
+        User result = userService.findById(user.getUser_id());
+        if (result == null) {
+            throw new IllegalArgumentException("User id not found - " + user.getUser_id());
         }
+        User dbUser = userService.save(user);
+        return dbUser;
     }
 
     @DeleteMapping("/users/{userId}")
