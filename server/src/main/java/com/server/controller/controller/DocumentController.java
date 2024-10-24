@@ -1,15 +1,14 @@
 package com.server.controller.controller;
 
 import com.server.model.entity.Document;
+import com.server.model.entity.ItemDocument;
 import com.server.service.document.DocumentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
-@Controller
+@RestController
 public class DocumentController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private DocumentService documentService;
@@ -21,6 +20,16 @@ public class DocumentController {
     @GetMapping("/documents")
     public List<Document> getAll() {
         return documentService.findAll();
+    }
+
+    @GetMapping("/{userId}/documents")
+    public List<Document> getAllByUserId(@PathVariable String userId) {
+        return documentService.findAllByUserId(userId);
+    }
+
+    @GetMapping("{userId}/itemDocuments")
+    public List<ItemDocument> getAllItem(@PathVariable String userId) {
+        return documentService.findAllItem(userId);
     }
 
     @GetMapping("/documents/{documentId}")
@@ -41,6 +50,10 @@ public class DocumentController {
 
     @PutMapping("/documents")
     public Document saveDocument(@RequestBody Document document) {
+        Document result = documentService.findById(document.getDocument_id());
+        if (result == null) {
+            throw new IllegalArgumentException("Document id not found - " + document.getDocument_id());
+        }
         Document dbDocument = documentService.save(document);
         return dbDocument;
     }

@@ -2,6 +2,7 @@ package com.server.service.document;
 
 import com.server.model.dao.DocumentRepository;
 import com.server.model.entity.Document;
+import com.server.model.entity.ItemDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,15 +24,19 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
+    public List<Document> findAllByUserId(String userId) {
+        return repository.findAllByUserId(userId);
+    }
+
+    @Override
+    public List<ItemDocument> findAllItem(String userId) {
+        return repository.findAllItem(userId);
+    }
+
+    @Override
     public Document findById(int id) {
         Optional<Document> result = repository.findById(id);
-        Document document = null;
-        if (result.isPresent()) {
-            document = result.get();
-        } else {
-            throw new RuntimeException("Did not find document id - " + id);
-        }
-        return document;
+        return result.orElse(null);
     }
 
     @Override
