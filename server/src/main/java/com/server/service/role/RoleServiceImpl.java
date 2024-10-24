@@ -18,4 +18,9 @@ public class RoleServiceImpl implements RoleService {
     public Role save(Role role) {
         return repository.save(role);
     }
+
+    @Override
+    public void deleteById(String userId) {
+        repository.deleteById(userId);
+    }
 }

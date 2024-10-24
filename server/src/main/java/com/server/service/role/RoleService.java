@@ -4,4 +4,5 @@ import com.server.model.entity.Role;
 
 public interface RoleService {
     Role save(Role role);
+    void deleteById(String userId);
 }

@@ -68,6 +68,7 @@ public class UserController {
         if (dbUser == null) {
             throw new RuntimeException("User id not found - " + userId);
         }
+        roleService.deleteById(userId);
         userService.deleteById(userId);
         return "Deleted user id - " + userId;
     }
