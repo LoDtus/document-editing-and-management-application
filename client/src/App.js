@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import { Routes, Route } from 'react-router-dom';
 import Header from "./components/Header";
 import Footer from "./components/Footer"
-import Documents from "./components/Documents";
+import DocumentList from "./components/DocumentList";
 import Editor from "./components/Editor";
 import Preview from "./components/Preview";
 import Profile from "./components/Profile";
@@ -29,8 +29,8 @@ function App() {
                 setSignup={setSignup}
             />
             <main className="flex justify-center min-h-[85vh] mb-5">
-                <div className="container-main lg:flex 2xl:px-3">
-                    <Documents
+                <div className="container-main xl:flex 2xl:px-3">
+                    <DocumentList
                         value={value}
                     />
                     <Routes>

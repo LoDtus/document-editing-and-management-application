@@ -11,7 +11,7 @@ function Editor({value, setValue, currentValue}) {
     }, [value]);
 
     return (
-        <div className="editor basis-[66%] lg:h-full sm:mb-3 lg:mb-0">
+        <div className="editor xl:basis-[66%] xl:h-full sm:mb-3 xl:mb-0 flex justify-center px-10">
             <Ckeditor
                 currentValue={currentValue}
                 setValue={setValue}

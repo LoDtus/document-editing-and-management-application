@@ -26,11 +26,11 @@ function Footer() {
                     <div className="informations-footer basis-2/6 md:flex flex-col items-end mt-5">
                         <p className="title font-semibold text-[#292929] text-xl mb-2">Informations</p>
                         <div className='flex items-center mb-1'>
-                            <span className='itemInfo-footer sm:hidden md:inline mr-3'>Nguyễn Trung Long</span>
+                            <span className='itemInfo-footer sm:hidden md:inline mr-3'>Nguyen Trung Long</span>
                             <svg className='w-[18px] h-[18px] fill-[#888888]' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                             <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
                             </svg>
-                            <span className='md:hidden ml-3'>Nguyễn Trung Long</span>
+                            <span className='md:hidden ml-3'>Nguyen Trung Long</span>
                         </div>
                         <div className='flex items-center mb-1'>
                             <span className='itemInfo-footer sm:hidden md:inline mr-3'>nguyentrunglong.150903@gmail.com</span>
@@ -79,7 +79,7 @@ function Footer() {
                         </a>
                     </div>
                     <div className="copyright-footer flex h-fit relative bottom-[10px]">
-                        <span className='flex items-center'>Designed by<strong className='ml-1'>Nguyễn Trung Long</strong></span>
+                        <span className='flex items-center'>Designed by<strong className='ml-1'>Nguyen Trung Long</strong></span>
                         <span className="border border-[#888888] mx-3"></span>
                         <span className='flex items-center'>Powered by<strong className='ml-1'>React</strong></span>
                     </div>

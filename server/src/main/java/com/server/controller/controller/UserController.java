@@ -58,8 +58,7 @@ public class UserController {
         if (result == null) {
             throw new IllegalArgumentException("User id not found - " + user.getUser_id());
         }
-        User dbUser = userService.save(user);
-        return dbUser;
+        return userService.save(user);
     }
 
     @DeleteMapping("/users/{userId}")
