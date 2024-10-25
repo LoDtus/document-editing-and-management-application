@@ -65,27 +65,32 @@ function Profile({setSignin, setSignup, value}) {
     }
 
     return (
-        <div className="profile sm:px-10 xl:pl-2 min-w-[17%] basis-[17%] bg-[#fafafa] font-semibold text-white">
-            <div className="user-profile flex">
-                <div className="title signup-userProfile grow mr-1 flex justify-center items-center
-                p-3 mb-2 bg-[#afb1c9] rounded-md hover:cursor-pointer hover:bg-[#bbbdd2] duration-150"
+        <div className="profile xl:pl-2
+            border basis-[20%] bg-[#fafafa] font-semibold text-white">
+            <div className="flex">
+                <div className="title basis-[50%] mr-1 flex justify-center items-center
+                p-3 mb-2 bg-[#afb1c9] rounded-md 
+                duration-200 hover:cursor-pointer hover:bg-[#bbbdd2] active:scale-90"
                 onClick={signIn}>Sign In</div>
-                <div className="title signin-userProfile grow ml-1 flex justify-center items-center
-                p-3 mb-2 bg-[#565c91] rounded-md hover:cursor-pointer hover:bg-[#696fa7] duration-150"
+                <div className="title basis-[50%] ml-1 flex justify-center items-center
+                p-3 mb-2 bg-[#565c91] rounded-md 
+                duration-200 hover:cursor-pointer hover:bg-[#696fa7] active:scale-90"
                 onClick={signUp}>Sign Up</div>
             </div>
-            <div className="title importPost-profile p-3 flex justify-center items-center bg-[#937152] mb-2 rounded-md 
-            hover:cursor-pointer hover:bg-[#a28161] duration-150"
-            onClick={preview}>{state ? nameButton[1] : nameButton[0]}</div>
-            <div className="title importPost-profile p-3 flex justify-center items-center bg-[#f2b843] mb-2 rounded-md 
-            hover:cursor-pointer hover:bg-[#f7c563] duration-150"
-            >Import</div>
-            <div className="title exportPost-profile p-3 flex justify-center items-center bg-[#e7676a] mb-2 rounded-md 
-            hover:cursor-pointer hover:bg-[#ee7e80] duration-150"
-            >Export</div>
-            <div className="title savePost-profile p-3 flex justify-center items-center bg-[#57baa0] mb-2 rounded-md 
-            hover:cursor-pointer hover:bg-[#6ccab1] duration-150"
-            onClick={save}>Save</div>
+            <div className='btnProfile sm:flex xl:block justify-between'>
+                <div className="title basis-[25%] sm:mr-1 xl:mx-0 p-3 flex justify-center items-center bg-[#57baa0] mb-2 rounded-md 
+                    duration-200 hover:cursor-pointer hover:bg-[#6ccab1] active:scale-90"
+                onClick={save}>Save</div>
+                <div className="title basis-[25%] sm:mx-1 xl:mx-0 p-3 flex justify-center items-center bg-[#937152] mb-2 rounded-md 
+                    duration-200 hover:cursor-pointer hover:bg-[#a28161] active:scale-90"
+                onClick={preview}>{state ? nameButton[1] : nameButton[0]}</div>
+                <div className="title basis-[25%] sm:mx-1 xl:mx-0 p-3 flex justify-center items-center bg-[#f2b843] mb-2 rounded-md 
+                    duration-200 hover:cursor-pointer hover:bg-[#f7c563] active:scale-90"
+                >Import</div>
+                <div className="title basis-[25%] sm:ml-1 xl:mx-0 p-3 flex justify-center items-center bg-[#e7676a] mb-2 rounded-md 
+                    duration-200 hover:cursor-pointer hover:bg-[#ee7e80] active:scale-90"
+                >Export</div>
+            </div>
         </div>
     )
 }

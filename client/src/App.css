@@ -12,7 +12,7 @@
     .content-itemDocument, .itemInfo-footer {
         display: none;
     }
-    .container-post {
+    .container-post, .btnProfile {
         display: flex;
     }
     .add-documents {
@@ -20,23 +20,21 @@
         margin-bottom: 8px;
     }
     .documentItem {
-        min-width: 200px;
-        margin-bottom: 8px;
-        margin-left: 6px;
+        margin-left: 8px;
+        min-width: 300px;
     }
     .profile {
         margin-top: 8px;
     }
-}
-@media (max-width: 1024px) {
-    
-}
-@media (min-width: 1024px) {
-    .content-itemDocument {
-        display: -webkit-box;
-        overflow: hidden;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
+    .btnProfile div {
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+    .btnProfile div:nth-of-type(1) {
+        margin-left: 0px;
+    }
+    .btnProfile div:nth-of-type(4) {
+        margin-right: 0px;
     }
 }
 @media (min-width: 1536px) {

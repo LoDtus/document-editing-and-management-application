@@ -300,14 +300,15 @@ export default function Ckeditor({currentValue, setValue}) {
 	};
 
 	return (
-		<div className='sm:min-w-[100%] lg:max-w-[99%] xl:min-w-[100%]'>
-			<div className='main-container sm:min-w-[100%] lg:max-w-[99%] xl:min-w-[100%]'>
+		<div className='sm:min-w-[100%] sm:max-w-[95vw] lg:max-w-[100%] overflow-x-auto'>
+			<div className='main-container sm:min-w-[100%] lg:max-w-[100%]'>
 				<div className="editor-container editor-container_document-editor" ref={editorContainerRef}>
 					<div className="editor-container__menu-bar" ref={editorMenuBarRef}></div>
 					<div className="editor-container__toolbar" ref={editorToolbarRef}></div>
-					<div className="editor-container__editor-wrapper sm:min-w-[100%] lg:max-w-[99%] xl:min-w-[100%] flex justify-center">
+					<div className="editor-container__editor-wrapper sm:min-w-[100%] lg:max-w-[100%]
+						flex justify-center">
 						<div className="editor-container__editor">
-							<div ref={editorRef}>
+							<div className='editArea' ref={editorRef}>
 								{isLayoutReady && (
 									<CKEditor
 										onReady={editor => {

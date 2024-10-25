@@ -29,7 +29,7 @@ function App() {
                 setSignup={setSignup}
             />
             <main className="flex justify-center min-h-[85vh] mb-5">
-                <div className="container-main xl:flex 2xl:px-3">
+                <div className="container-main px-3 xl:flex">
                     <DocumentList
                         value={value}
                     />
