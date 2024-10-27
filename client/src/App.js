@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Routes, Route } from 'react-router-dom';
 import Header from "./components/Header";
 import Footer from "./components/Footer"
@@ -9,13 +9,18 @@ import Preview from "./components/Preview";
 import Profile from "./components/Profile";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
+import axios from "axios";
+import { setAuthCredentials } from "./utils/api";
 
 function App() {
     const [value, setValue] = useState('');
     const currentValue = useRef("<h1 class='title'><strong>Untitled</strong></h1>")
     const [signin, setSignin] = useState(false);
     const [signup, setSignup] = useState(false);
-    console.log(value);
+    
+    // useEffect(() => {
+    //     setAuthCredentials('doanhonghoa', 345);
+    // }, []);
 
 	return (
 		<div className="App bg-[#fafafa] flex flex-col justify-center items-center">
