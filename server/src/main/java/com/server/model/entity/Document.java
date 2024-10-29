@@ -27,17 +27,13 @@ public class Document {
     @Column(name = "content")
     private String content;
 
-    @Column(name = "thumbnail")
-    private String thumbnail;
-
     @Column(name = "modify_at")
     private Date modify_at;
 
-    public Document(String user_id, String subject, String content, String thumbnail, Date modify_at) {
+    public Document(String user_id, String subject, String content, Date modify_at) {
         this.user_id = user_id;
         this.subject = subject;
         this.content = content;
-        this.thumbnail = thumbnail;
         this.modify_at = modify_at;
     }
 
@@ -48,7 +44,6 @@ public class Document {
                 ", user_id=" + user_id +
                 ", subject='" + subject + '\'' +
                 ", content='" + content + '\'' +
-                ", thumbnail='" + thumbnail + '\'' +
                 ", modify_at=" + modify_at +
                 '}';
     }

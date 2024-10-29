@@ -17,9 +17,6 @@ export default function App() {
     const [signup, setSignup] = useState(false);
     setAuthCredentials('phamthihoaithu', '567');
 
-    console.log(getCurrentTime());
-    console.log(convertTime('2024-12-12T03:10:10.000+00:00'));
-
 	return (
 		<div className="App bg-[#fafafa] flex flex-col justify-center items-center">
             <Header/>

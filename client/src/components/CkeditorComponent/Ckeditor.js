@@ -78,7 +78,9 @@ export default function Ckeditor({isNew, preview, setValue}) {
 	const editorMenuBarRef = useRef(null);
 	const editorToolbarRef = useRef(null);
 	const editorRef = useRef(null);
+	const previewRef = useRef(null);
 	const [isLayoutReady, setIsLayoutReady] = useState(false);
+	const [previewReady, setPreviewReady] = useState(false);
 
 	useEffect(() => {
 		setIsLayoutReady(true);
@@ -90,6 +92,13 @@ export default function Ckeditor({isNew, preview, setValue}) {
 			editorRef.current.setData('');
 		}
 	}, [isNew]);
+
+	useEffect(() => {
+		if (preview && previewRef && previewReady) {
+			const editableElement = previewRef.current.ui.view.editable.element;
+            editableElement.contentEditable = false;
+		}
+	}, [previewReady]);
 
 	const editorConfig = {
 		toolbar: {
@@ -343,6 +352,11 @@ export default function Ckeditor({isNew, preview, setValue}) {
 								)}
 								{isLayoutReady && preview && (
 									<CKEditor
+										ref={previewRef}
+										onReady={editor => {
+											previewRef.current = editor;
+											setPreviewReady(true);
+										}}
 										editor={DecoupledEditor}
 										config={editorConfig}
 										data={''}

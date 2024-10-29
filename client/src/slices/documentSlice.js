@@ -7,7 +7,6 @@ export default createSlice({
         userId: null,
         subject: 'Untitled',
         content: '',
-        thumbnail: '',
         modifyAt: '',
     },
     reducers: {
