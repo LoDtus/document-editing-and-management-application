@@ -8,7 +8,7 @@ export default function Profile({setSignin, setSignup}) {
 
     function preview() {
         setEdit(!edit);
-        navigate(edit ? '/' : '/preview')
+        navigate(edit ? '/' : '/preview');
     }
     function save() {
         // if (value === '') {
@@ -65,7 +65,7 @@ export default function Profile({setSignin, setSignup}) {
 
     return (
         <div className="profile xl:pl-2
-            border basis-[20%] bg-[#fafafa] font-semibold text-white">
+            basis-[20%] bg-[#fafafa] font-semibold text-white">
             <input type="file" ref={fileInp} className='hidden' onChange={handleFileImport}/>
             <div className="flex">
                 <div className="title basis-[50%] mr-1 flex justify-center items-center

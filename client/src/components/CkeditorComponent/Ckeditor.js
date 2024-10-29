@@ -1,4 +1,4 @@
-import './style.css'
+// import './style.css'
 import { useState, useEffect, useRef } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 
@@ -310,7 +310,9 @@ export default function Ckeditor({isNew, setValue}) {
 				<div className="editor-container editor-container_document-editor" ref={editorContainerRef}>
 					<div className="editor-container__menu-bar" ref={editorMenuBarRef}></div>
 					<div className="editor-container__toolbar" ref={editorToolbarRef}></div>
-					<div className="editor-container__editor-wrapper sm:min-w-[100%] lg:max-w-[100%]
+					<div
+						className="editor-container__editor-wrapper
+						sm:min-w-[100%] lg:max-w-[100%]
 						flex justify-center">
 						<div className="editor-container__editor">
 							<div className='editArea' ref={editorRef}>

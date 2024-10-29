@@ -10,11 +10,15 @@ import Profile from "./components/Profile";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import { setAuthCredentials } from './utils/api';
+import { convertTime, getCurrentTime } from "./utils/functions";
 
 export default function App() {
     const [signin, setSignin] = useState(false);
     const [signup, setSignup] = useState(false);
     setAuthCredentials('phamthihoaithu', '567');
+
+    console.log(getCurrentTime());
+    console.log(convertTime('2024-12-12T03:10:10.000+00:00'));
 
 	return (
 		<div className="App bg-[#fafafa] flex flex-col justify-center items-center">

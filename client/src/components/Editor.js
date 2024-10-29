@@ -23,7 +23,7 @@ export default function Editor() {
     }, [value]);
 
     return (
-        <div className="xl:w-[60%] basis-[60%] border xl:h-full sm:mb-2 xl:mb-0
+        <div className="xl:w-[60%] basis-[60%] xl:h-full sm:mb-2 xl:mb-0
             flex justify-center">
             <Ckeditor
                 isNew={isNew}

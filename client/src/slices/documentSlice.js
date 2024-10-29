@@ -8,7 +8,7 @@ export default createSlice({
         subject: 'Untitled',
         content: '',
         thumbnail: '',
-        modifyAt: ''
+        modifyAt: '',
     },
     reducers: {
         setNewDoc: (state, action) => {
