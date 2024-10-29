@@ -1,4 +1,4 @@
-// import './style.css'
+import './style.css'
 import { useState, useEffect, useRef } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 
@@ -73,7 +73,7 @@ import {
 } from "ckeditor5";
 import 'ckeditor5/ckeditor5.css';
 
-export default function Ckeditor({isNew, setValue}) {
+export default function Ckeditor({isNew, preview, setValue}) {
 	const editorContainerRef = useRef(null);
 	const editorMenuBarRef = useRef(null);
 	const editorToolbarRef = useRef(null);
@@ -308,24 +308,30 @@ export default function Ckeditor({isNew, setValue}) {
 		<div className='sm:min-w-[100%] sm:max-w-[95vw] lg:max-w-[100%] overflow-x-auto'>
 			<div className='main-container sm:min-w-[100%] lg:max-w-[100%]'>
 				<div className="editor-container editor-container_document-editor" ref={editorContainerRef}>
-					<div className="editor-container__menu-bar" ref={editorMenuBarRef}></div>
-					<div className="editor-container__toolbar" ref={editorToolbarRef}></div>
+					{preview ? <div></div> : 
+						<div>
+							<div className="editor-container__menu-bar" ref={editorMenuBarRef}></div>
+							<div className="editor-container__toolbar" ref={editorToolbarRef}></div>
+						</div>
+					}
 					<div
 						className="editor-container__editor-wrapper
 						sm:min-w-[100%] lg:max-w-[100%]
 						flex justify-center">
 						<div className="editor-container__editor">
 							<div className='editArea' ref={editorRef}>
-								{isLayoutReady && (
+								{isLayoutReady && !preview && (
 									<CKEditor
 										onReady={editor => {
-											editorRef.current = editor; 
+											editorRef.current = editor;
 											editorToolbarRef.current.appendChild(editor.ui.view.toolbar.element);
 											editorMenuBarRef.current.appendChild(editor.ui.view.menuBarView.element);
 										}}
 										onAfterDestroy={() => {
-											Array.from(editorToolbarRef.current.children).forEach(child => child.remove());
-											Array.from(editorMenuBarRef.current.children).forEach(child => child.remove());
+											if (editorToolbarRef.current)
+												Array.from(editorToolbarRef.current.children).forEach(child => child.remove());
+											if (editorMenuBarRef.current)
+												Array.from(editorMenuBarRef.current.children).forEach(child => child.remove());
 										}}
 										editor={DecoupledEditor}
 										config={editorConfig}
@@ -333,6 +339,13 @@ export default function Ckeditor({isNew, setValue}) {
 										onBlur={(event, editor) => {
 											setValue(editor.getData());
 										}}
+									/>
+								)}
+								{isLayoutReady && preview && (
+									<CKEditor
+										editor={DecoupledEditor}
+										config={editorConfig}
+										data={''}
 									/>
 								)}
 							</div>

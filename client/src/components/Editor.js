@@ -27,6 +27,7 @@ export default function Editor() {
             flex justify-center">
             <Ckeditor
                 isNew={isNew}
+                preview={false}
                 setValue={setValue} />
         </div>
     )
