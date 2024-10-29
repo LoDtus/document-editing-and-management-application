@@ -16,12 +16,12 @@ export function setAuthCredentials(username, password) {
 
 instance.interceptors.request.use(
     function (config) {
-        if (config.url.includes('/users')) {
-            config.auth = {
-                username: auth.username,
-                password: auth.password
-            };
-        }
+        config.auth = {
+            // username: auth.username,
+            // password: auth.password,
+            username: 'phamthihoaithu',
+            password: '567',
+        };
         return config;
     }, function (error) {
         return Promise.reject(error);

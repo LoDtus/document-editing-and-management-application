@@ -12,6 +12,6 @@ public interface DocumentRepository extends JpaRepository<Document, Integer> {
     @Query(value = "SELECT * FROM documents WHERE user_id = :userId", nativeQuery = true)
     List<Document> findAllByUserId(@Param("userId") String userId);
 
-    @Query("SELECT new com.server.model.entity.ItemDocument(document_id, subject, create_at) FROM Document WHERE user_id = :userId")
+    @Query("SELECT new com.server.model.entity.ItemDocument(document_id, subject, modify_at) FROM Document WHERE user_id = :userId")
     List<ItemDocument> findAllItem(@Param("userId") String userId);
 }

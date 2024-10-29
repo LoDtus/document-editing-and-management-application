@@ -1,4 +1,4 @@
-function DocumentItem({subject, modifyAt}) {
+function DocumentItem({docId, subject, modifyAt}) {
     return (
         <div className="documentItem sm:ml-2 xl:mx-0 sm:min-w-[300px]
         mb-2 py-3 px-5 min-h-[100px] flex flex-col justify-center

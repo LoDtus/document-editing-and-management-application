@@ -25,42 +25,42 @@ function Profile({setSignin, setSignup, value}) {
         if (value === '') {
             alert('Chưa có dữ liệu')
         } else {
-            let temp = document.createElement('div');
-            temp.innerHTML = value;
-            let elements = temp.children;
+            // let temp = document.createElement('div');
+            // temp.innerHTML = value;
+            // let elements = temp.children;
 
-            // Lấy ra tiêu đề bài viết, dòng Heading khác rỗng đầu tiên trong bài viết sẽ được xác định là tiêu đề
-            // Nếu không, hệ thống sẽ gán mặc định tiêu đề bài viết đó là "Untitled"
-            let tempTitle = null;
-            for (let i=0; i<elements.length; i++) {
-                const tagName = elements[i].tagName.toLowerCase();
-                if (tagName !== 'h1' && tagName !== 'h2' && tagName !== 'h3' && tagName !== 'h4')
-                    break
-                if (elements[i].innerText.trim() !== '') {
-                    tempTitle = elements[i];
-                    break;
-                }
-            }
-            const title = tempTitle ? tempTitle.outerHTML : '<h2><strong>Untitled</strong></h2>';
+            // // Lấy ra tiêu đề bài viết, dòng Heading khác rỗng đầu tiên trong bài viết sẽ được xác định là tiêu đề
+            // // Nếu không, hệ thống sẽ gán mặc định tiêu đề bài viết đó là "Untitled"
+            // let tempTitle = null;
+            // for (let i=0; i<elements.length; i++) {
+            //     const tagName = elements[i].tagName.toLowerCase();
+            //     if (tagName !== 'h1' && tagName !== 'h2' && tagName !== 'h3' && tagName !== 'h4')
+            //         break
+            //     if (elements[i].innerText.trim() !== '') {
+            //         tempTitle = elements[i];
+            //         break;
+            //     }
+            // }
+            // const title = tempTitle ? tempTitle.outerHTML : '<h2><strong>Untitled</strong></h2>';
 
-            // Lấy ra 3 phần tử còn lại trong bài viết trừ tiêu đề và các phần tử rỗng
-            const contentElements = [];
-            elements = Array.from(temp.childNodes);
-            for (let i=0; i<elements.length; i++) {
-                if (elements[i] !== tempTitle && elements[i].innerText.trim() !== '')
-                    contentElements.push(elements[i]);
-                if (contentElements.length > 2)
-                    break;
-            }
-            const contentHtml = contentElements.map(node => node.outerHTML).join('');
+            // // Lấy ra 3 phần tử còn lại trong bài viết trừ tiêu đề và các phần tử rỗng
+            // const contentElements = [];
+            // elements = Array.from(temp.childNodes);
+            // for (let i=0; i<elements.length; i++) {
+            //     if (elements[i] !== tempTitle && elements[i].innerText.trim() !== '')
+            //         contentElements.push(elements[i]);
+            //     if (contentElements.length > 2)
+            //         break;
+            // }
+            // const contentHtml = contentElements.map(node => node.outerHTML).join('');
 
-            console.log(contentElements);
-            console.log("title", title);
-            console.log("content", contentHtml);
+            // console.log(contentElements);
+            // console.log("title", title);
+            // console.log("content", contentHtml);
 
-            // localStorage.setItem('post', value);
-            // alert('Lưu thành công!');
-            temp = null;
+            // // localStorage.setItem('post', value);
+            // // alert('Lưu thành công!');
+            // temp = null;
         }
     }
 

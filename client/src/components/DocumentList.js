@@ -1,12 +1,22 @@
 import { useEffect, useState } from 'react'
 import DocumentItem from './DocumentItem';
-import { getAllUsers } from '../utils/userService';
-import axios from 'axios';
-import { setAuthCredentials } from '../utils/api';
+import { getAllItems } from '../utils/documentService';
+import { useDispatch } from 'react-redux';
+import documentSlice from '../slices/documentSlice';
 
-function DocumentList({}) {
+function DocumentList() {
+    const [items, setItems] = useState([]);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        (async() => {
+            const data = await getAllItems('phamthihoaithu');
+            setItems(data);
+        })();
+    }, []);
+
     function addPost() {
-        
+        dispatch(documentSlice.actions.setNewDoc(true));
     }
 
     return (
@@ -25,35 +35,14 @@ function DocumentList({}) {
                     onClick={addPost}>
                     ADD A NEW POST
                 </div>
-                
-                <DocumentItem
-                    subject={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam aliquid doloribus placeat natus repellat aut quas in magnam hic ad tempore praesentium fugiat, consectetur eaque non. Distinctio, aliquam porro. Voluptas!"}
-                    modifyAt={"22.22.2024"}
-                />
-                <DocumentItem
-                    subject={"Lorem ipsum dolor"}
-                    modifyAt={"22.22.2024"}
-                />
-                <DocumentItem
-                    subject={"Lorem ipsum dolor"}
-                    modifyAt={"22.22.2024"}
-                />
-                <DocumentItem
-                    subject={"Lorem ipsum dolor"}
-                    modifyAt={"22.22.2024"}
-                />
-                <DocumentItem
-                    subject={"Lorem ipsum dolor"}
-                    modifyAt={"22.22.2024"}
-                />
-                <DocumentItem
-                    subject={"Lorem ipsum dolor"}
-                    modifyAt={"22.22.2024"}
-                />
-                <DocumentItem
-                    subject={"Lorem ipsum dolor"}
-                    modifyAt={"22.22.2024"}
-                />
+                {items.length !== 0 && items.map((e, i) => (
+                    <DocumentItem
+                        key={i}
+                        docId={e.document_id}
+                        subject={e.subject}
+                        modifyAt={e.modify_at}
+                    />
+                ))}
             </div>
         </div>
     )

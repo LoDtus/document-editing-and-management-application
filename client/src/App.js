@@ -9,18 +9,14 @@ import Preview from "./components/Preview";
 import Profile from "./components/Profile";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
-import axios from "axios";
-import { setAuthCredentials } from "./utils/api";
+import { setAuthCredentials } from './utils/api';
 
-function App() {
-    const [value, setValue] = useState('');
-    const currentValue = useRef("<h1 class='title'><strong>Untitled</strong></h1>")
+
+export default function App() {
     const [signin, setSignin] = useState(false);
     const [signup, setSignup] = useState(false);
-    
-    // useEffect(() => {
-    //     setAuthCredentials('doanhonghoa', 345);
-    // }, []);
+
+    setAuthCredentials('phamthihoaithu', '567');
 
 	return (
 		<div className="App bg-[#fafafa] flex flex-col justify-center items-center">
@@ -35,30 +31,20 @@ function App() {
             />
             <main className="flex justify-center min-h-[85vh] mb-5">
                 <div className="container-main px-3 xl:flex">
-                    <DocumentList
-                        value={value}
-                    />
+                    <DocumentList/>
                     <Routes>
-                        <Route path="/" 
-                            element={
-                            <Editor
-                                value={value}
-                                setValue={setValue}
-                                currentValue={currentValue}
-                            />}    
-                        />
-                        <Route path="/preview"
-                            element={
-                            <Preview
-                                value={value}
-                            />}    
-                        />
+                        <Route
+                            path="/"
+                            element={<Editor/>}/>
+                        <Route
+                            path="/preview"
+                            element={<Preview/>}/>
                     </Routes>
                     
                     <Profile
                         setSignin={setSignin}
                         setSignup={setSignup}
-                        value={value}
+                        // value={value}
                     />
                 </div>
             </main>
@@ -66,5 +52,3 @@ function App() {
 		</div>
 	);
 }
-
-export default App;

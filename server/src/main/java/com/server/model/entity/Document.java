@@ -30,15 +30,15 @@ public class Document {
     @Column(name = "thumbnail")
     private String thumbnail;
 
-    @Column(name = "create_at")
-    private Date create_at;
+    @Column(name = "modify_at")
+    private Date modify_at;
 
-    public Document(String user_id, String subject, String content, String thumbnail, Date create_at) {
+    public Document(String user_id, String subject, String content, String thumbnail, Date modify_at) {
         this.user_id = user_id;
         this.subject = subject;
         this.content = content;
         this.thumbnail = thumbnail;
-        this.create_at = create_at;
+        this.modify_at = modify_at;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class Document {
                 ", subject='" + subject + '\'' +
                 ", content='" + content + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
-                ", create_at=" + create_at +
+                ", modify_at=" + modify_at +
                 '}';
     }
 }

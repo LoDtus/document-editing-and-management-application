@@ -69,11 +69,11 @@ import {
 	TodoList,
 	Underline,
 	Undo,
-	RestrictedEditingExceptionCommand
-} from 'ckeditor5';
+	RestrictedEditingExceptionCommand,
+} from "ckeditor5";
 import 'ckeditor5/ckeditor5.css';
 
-export default function Ckeditor({currentValue, setValue}) {
+export default function Ckeditor({isNew, setValue}) {
 	const editorContainerRef = useRef(null);
 	const editorMenuBarRef = useRef(null);
 	const editorToolbarRef = useRef(null);
@@ -82,9 +82,14 @@ export default function Ckeditor({currentValue, setValue}) {
 
 	useEffect(() => {
 		setIsLayoutReady(true);
-
 		return () => setIsLayoutReady(false);
 	}, []);
+
+	useEffect(() => {
+		if (isNew) {
+			editorRef.current.setData('');
+		}
+	}, [isNew]);
 
 	const editorConfig = {
 		toolbar: {
@@ -312,6 +317,7 @@ export default function Ckeditor({currentValue, setValue}) {
 								{isLayoutReady && (
 									<CKEditor
 										onReady={editor => {
+											editorRef.current = editor; 
 											editorToolbarRef.current.appendChild(editor.ui.view.toolbar.element);
 											editorMenuBarRef.current.appendChild(editor.ui.view.menuBarView.element);
 										}}
@@ -321,7 +327,7 @@ export default function Ckeditor({currentValue, setValue}) {
 										}}
 										editor={DecoupledEditor}
 										config={editorConfig}
-										data={currentValue.current}
+										data={''}
 										onBlur={(event, editor) => {
 											setValue(editor.getData());
 										}}

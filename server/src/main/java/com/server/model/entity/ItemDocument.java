@@ -13,17 +13,17 @@ import java.util.Date;
 public class ItemDocument {
     private int document_id;
     private String subject;
-    private Date create_at;
+    private Date modify_at;
 
-    public ItemDocument(String subject, int document_id, Date create_at) {
+    public ItemDocument(String subject, int document_id, Date modify_at) {
         this.document_id = document_id;
         this.subject = subject;
-        this.create_at = create_at;
+        this.modify_at = modify_at;
     }
 
-    public ItemDocument(int document_id, String subject, Date create_at) {
+    public ItemDocument(int document_id, String subject, Date modify_at) {
         this.document_id = document_id;
         this.subject = subject;
-        this.create_at = create_at;
+        this.modify_at = modify_at;
     }
 }
