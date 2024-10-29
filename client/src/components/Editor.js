@@ -13,7 +13,7 @@ export default function Editor() {
 
     useEffect(() => {
         // dispatch(documentSlice.actions.setNewDoc(true));
-        console.log(value);
+        // console.log(value);
         dispatch(documentSlice.actions.setDocValue({
             userId: '',
             subject: '',

@@ -11,11 +11,9 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import { setAuthCredentials } from './utils/api';
 
-
 export default function App() {
     const [signin, setSignin] = useState(false);
     const [signup, setSignup] = useState(false);
-
     setAuthCredentials('phamthihoaithu', '567');
 
 	return (
@@ -24,10 +22,12 @@ export default function App() {
             <SignIn
                 signin={signin}
                 setSignin={setSignin}
+                setSignup={setSignup}
             />
             <SignUp
                 signup={signup}
                 setSignup={setSignup}
+                setSignin={setSignin}
             />
             <main className="flex justify-center min-h-[85vh] mb-5">
                 <div className="container-main px-3 xl:flex">
@@ -44,7 +44,6 @@ export default function App() {
                     <Profile
                         setSignin={setSignin}
                         setSignup={setSignup}
-                        // value={value}
                     />
                 </div>
             </main>

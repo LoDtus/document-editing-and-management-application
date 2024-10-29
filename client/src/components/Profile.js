@@ -1,30 +1,19 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useState, useRef } from 'react';
 
-function Profile({setSignin, setSignup, value}) {
+export default function Profile({setSignin, setSignup}) {
     const navigate = useNavigate();
-    const [state, setState] = useState(false)
-    const nameButton = ['Preview', 'Continue Editing']
+    const [edit, setEdit] = useState(false);
+    const fileInp = useRef(null); 
 
     function preview() {
-        setState(!state)
-        if (state) {
-            navigate('/')
-        }
-        else {
-            navigate('/preview')
-        }
-    }
-    function signIn() {
-        setSignin(true)
-    }
-    function signUp() {
-        setSignup(true)
+        setEdit(!edit);
+        navigate(edit ? '/' : '/preview')
     }
     function save() {
-        if (value === '') {
-            alert('Chưa có dữ liệu')
-        } else {
+        // if (value === '') {
+        //     alert('Chưa có dữ liệu')
+        // } else {
             // let temp = document.createElement('div');
             // temp.innerHTML = value;
             // let elements = temp.children;
@@ -61,37 +50,47 @@ function Profile({setSignin, setSignup, value}) {
             // // localStorage.setItem('post', value);
             // // alert('Lưu thành công!');
             // temp = null;
+        // }
+    }
+    function importFile() {
+        fileInp.current.click();
+    }
+    function handleFileImport(event) {
+        const file = event.target.files[0];
+        if (file) {
+            console.log("File uploaded:", file.name);
+            // Xử lý file tải lên tại đây (ví dụ: gửi lên server)
         }
     }
 
     return (
         <div className="profile xl:pl-2
             border basis-[20%] bg-[#fafafa] font-semibold text-white">
+            <input type="file" ref={fileInp} className='hidden' onChange={handleFileImport}/>
             <div className="flex">
                 <div className="title basis-[50%] mr-1 flex justify-center items-center
                 p-3 mb-2 bg-[#afb1c9] rounded-md 
                 duration-200 hover:cursor-pointer hover:bg-[#bbbdd2] active:scale-90"
-                onClick={signIn}>Sign In</div>
+                onClick={() => setSignin(true)}>Sign In</div>
                 <div className="title basis-[50%] ml-1 flex justify-center items-center
                 p-3 mb-2 bg-[#565c91] rounded-md 
                 duration-200 hover:cursor-pointer hover:bg-[#696fa7] active:scale-90"
-                onClick={signUp}>Sign Up</div>
+                onClick={() => setSignup(true)}>Sign Up</div>
             </div>
             <div className='btnProfile sm:flex xl:block justify-between'>
                 <div className="title basis-[25%] sm:mr-1 xl:mx-0 p-3 flex justify-center items-center bg-[#57baa0] mb-2 rounded-md 
                     duration-200 hover:cursor-pointer hover:bg-[#6ccab1] active:scale-90"
-                onClick={save}>Save</div>
+                onClick={() => save()}>Save</div>
                 <div className="title basis-[25%] sm:mx-1 xl:mx-0 p-3 flex justify-center items-center bg-[#937152] mb-2 rounded-md 
                     duration-200 hover:cursor-pointer hover:bg-[#a28161] active:scale-90"
-                onClick={preview}>{state ? nameButton[1] : nameButton[0]}</div>
+                onClick={() => preview()}>{edit ? 'Continue Editing' : 'Preview'}</div>
                 <div className="title basis-[25%] sm:mx-1 xl:mx-0 p-3 flex justify-center items-center bg-[#f2b843] mb-2 rounded-md 
                     duration-200 hover:cursor-pointer hover:bg-[#f7c563] active:scale-90"
-                >Import</div>
+                onClick={() => importFile()}>Import</div>
                 <div className="title basis-[25%] sm:ml-1 xl:mx-0 p-3 flex justify-center items-center bg-[#e7676a] mb-2 rounded-md 
                     duration-200 hover:cursor-pointer hover:bg-[#ee7e80] active:scale-90"
                 >Export</div>
             </div>
         </div>
     )
-}
-export default Profile;
+};
