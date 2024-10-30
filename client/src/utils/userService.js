@@ -5,19 +5,35 @@ export const getAllUsers = async () => {
     return response.data;
 }
 
-export const getUserById = async (userId) => {
-    const response = await instance.get(`/users/${userId}`)
+export const chechExists = async (userId) => {
+    const response = await instance.get(`/users/check/${userId}`);
     return response.data;
 }
 
-export const addUser = async () => {
-    
+export const checkSignIn = async (userId, password) => {
+    const response = await instance.get(`/users/${userId}/{noop}${password}`);
+    return response.data;
 }
 
-export const updateUser = async () => {
-
+export const addUser = async (userId, password) => {
+    const response = await instance.post(`/users`, {
+        "user_id": userId,
+        "user_password": `{noop}${password}`,
+        "active": 1
+    });
+    return response.status === 200;
 }
 
-export const deleteUserById = async () => {
-    
+export const updateUser = async (userId, password) => {
+    const response = await instance.put(`/users`, {
+        "user_id": userId,
+        "user_password": `{noop}${password}`,
+        "active": 1
+    });
+    return response.status === 200;
+}
+
+export const deleteUserById = async (userId) => {
+    const response = await instance.delete(`/users/${userId}`);
+    return response.data;
 }

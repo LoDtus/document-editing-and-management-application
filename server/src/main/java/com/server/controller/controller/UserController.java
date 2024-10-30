@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -27,13 +28,18 @@ public class UserController {
         return userService.findAll();
     }
 
-    @GetMapping("/users/{userId}")
-    public User getUser(@PathVariable String userId) {
+    @GetMapping("users/check/{userId}")
+    public boolean checkExists(@PathVariable String userId) {
         User user = userService.findById(userId);
-        if (user == null) {
-            throw new RuntimeException("User id not found - " + userId);
-        }
-        return user;
+        return user != null;
+    }
+
+    @GetMapping("/users/{userId}/{userPassword}")
+    public boolean signIn(@PathVariable String userId, @PathVariable String userPassword) {
+        User user = userService.findById(userId);
+        if (user == null)
+            return false;
+        return(user.getUser_password().equals(userPassword));
     }
 
     @PostMapping("/users")

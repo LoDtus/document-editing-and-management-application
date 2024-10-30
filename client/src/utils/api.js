@@ -27,10 +27,16 @@ instance.interceptors.request.use(
         return Promise.reject(error);
 });
 
-instance.interceptors.response.use(function (response) {
-    return response;
-}, function (error) {
-    return Promise.reject(error);
-});
+instance.interceptors.response.use(
+    function (response) {
+        return response;
+    },
+    function (error) {
+        if (error.response && error.response.status === 400) {
+            return {data: null};
+        }
+        return Promise.reject(error);
+    }
+);
 
 export default instance;

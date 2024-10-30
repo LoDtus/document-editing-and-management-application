@@ -1,24 +1,29 @@
 import { useState } from "react"
 import { setAuthCredentials } from "../utils/api";
+import { Input } from 'antd';
+import { checkSignIn } from "../utils/userService";
 
 export default function SignIn({signin, setSignin, setSignup}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    let response;
 
     function openSignUp() {
         setSignin(false);
         setSignup(true);
     }
 
-    function signIn() {
-        // Check
-        // if () {
-        //     console.log("Wrong");
-        //     return;
-        // } else {
-        //     setAuthCredentials(username, password);
-        //     // Cookies
-        // }
+    async function signIn() {
+        response = await checkSignIn(username, password);
+        if (response) {
+            console.log("Done!");
+            setAuthCredentials(username, password);
+            // Cookies
+            return;
+        } else {
+            alert("Wrong Information!");
+            return;
+        }
     }
 
     return (
@@ -29,14 +34,19 @@ export default function SignIn({signin, setSignin, setSignup}) {
                 <span className='flex justify-center font-xl font-bold mb-4 text-2xl'>Sign In</span>
                 <div className="flex items-center mb-1">
                     <label className='w-[100px]' htmlFor="username-signin">Username: </label>
-                    <input type="text" name="username-signin" id="username-signin"
-                        className='bg-[#e9ebee] grow rounded-sm py-1 px-2'
+                    <Input
+                        className='basis-[70%]'
+                        name="username-signin" id="username-signin"
+                        onBlur={(e) => setUsername(e.target.value)}
                     />
                 </div>
                 <div className="flex items-center mb-2">
-                    <label className='w-[100px]' htmlFor="password-signup">Password: </label>
-                    <input type="password" name="password-signup" id="password-signup"
-                        className='bg-[#e9ebee] grow rounded-sm py-1 px-2'
+                    <label className='w-[100px]' htmlFor="password-signin">Password: </label>
+                    <Input.Password
+                        className='basis-[70%]'
+                        placeholder=""
+                        name="password-signin" id="password-signin"
+                        onBlur={(e) => setPassword(e.target.value)}
                     />
                 </div>
                 <div className="flex items-center mb-2 h-8">

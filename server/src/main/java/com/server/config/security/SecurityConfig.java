@@ -29,6 +29,7 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         configuration.addAllowedHeader("Authorization");
+        configuration.addAllowedHeader("Content-Type");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
@@ -54,8 +55,10 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
         http.sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.authorizeHttpRequests(configure -> configure
-                .requestMatchers(HttpMethod.GET, "/users/**").hasRole("MEMBER")
-                .requestMatchers(HttpMethod.POST, "/users").hasRole("MEMBER")
+                .requestMatchers(HttpMethod.GET, "/users").hasRole("MEMBER")
+                .requestMatchers(HttpMethod.GET, "/users/check/{userId}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/users/{userId}/{passwordId}").permitAll()
+                .requestMatchers(HttpMethod.POST, "/users").permitAll()
                 .requestMatchers(HttpMethod.PUT, "/users").hasRole("MEMBER")
                 .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("MEMBER")
 
