@@ -37,9 +37,11 @@ public class UserController {
     @GetMapping("/users/{userId}/{userPassword}")
     public boolean signIn(@PathVariable String userId, @PathVariable String userPassword) {
         User user = userService.findById(userId);
-        if (user == null)
+        if (user == null) {
+            logger.info("Null!");
             return false;
-        return(user.getUser_password().equals(userPassword));
+        }
+        return(user.getUser_password().equals("{noop}" + userPassword));
     }
 
     @PostMapping("/users")

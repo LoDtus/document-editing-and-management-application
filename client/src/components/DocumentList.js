@@ -8,16 +8,20 @@ import { getCurrentTime } from '../utils/functions';
 
 export default function DocumentList() {
     const dispatch  = useDispatch();
+    const userId    = useSelector(getAuth).username;
     const authData  = useSelector(getAuth);
     const isNew     = useSelector(getNewDoc);
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        (async() => {
-            const data = await getAllItems(authData.username);
-            setItems(data);
-        }) ();
-    }, []);
+        if (userId !== '') {
+            async function getItemsDoc() {
+                const data = await getAllItems(authData.username);
+                setItems(data);
+            };
+            getItemsDoc();
+        }
+    }, [userId]);
 
     function createDoc() {
         dispatch(documentSlice.actions.setNewDoc(true));

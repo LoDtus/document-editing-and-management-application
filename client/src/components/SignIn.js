@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { SetAuthCredentials } from "../utils/api";
+import { useSetAuthCredentials } from "../utils/api";
 import { Input } from 'antd';
 import { checkSignIn } from "../utils/userService";
 import { getCurrentTime } from "../utils/functions";
@@ -8,6 +8,7 @@ export default function SignIn({signin, setSignin, setSignup}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
+    const setAuthCredentials  = useSetAuthCredentials();
     let response;
 
     function openSignUp() {
@@ -16,11 +17,12 @@ export default function SignIn({signin, setSignin, setSignup}) {
     }
 
     async function signIn() {
-        response = await checkSignIn(username, password);
+        response = await checkSignIn(username.trim(), password);
         if (response) {
             console.log("Done!");
-            SetAuthCredentials(username, password, rememberMe, getCurrentTime());
+            setAuthCredentials (username, password, rememberMe, getCurrentTime());
             // Cookies
+            setSignin(false);
             return;
         } else {
             alert("Wrong Information!");

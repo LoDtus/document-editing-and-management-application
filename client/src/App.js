@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { Routes, Route } from 'react-router-dom';
 import Header from "./components/Header";
 import Footer from "./components/Footer"
@@ -10,12 +10,10 @@ import Profile from "./components/Profile";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import { SetAuthCredentials } from './utils/api';
-import { convertTime, getCurrentTime } from "./utils/functions";
 
 export default function App() {
     const [signin, setSignin] = useState(false);
     const [signup, setSignup] = useState(false);
-    SetAuthCredentials('phamthihoaithu', '567');
 
 	return (
 		<div className="App bg-[#fafafa] flex flex-col justify-center items-center">

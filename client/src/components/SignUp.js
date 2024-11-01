@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { addUser, chechExists } from '../utils/userService';
 import { Input } from 'antd';
-import { SetAuthCredentials } from '../utils/api';
+import { useSetAuthCredentials } from '../utils/api';
+import { getCurrentTime } from '../utils/functions';
 
 export default function SignUp({signup, setSignup, setSignin}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [repassword, setRepassword] = useState('');
     const [usernameExists, setUsernameExists] = useState(false);
+    const setAuthCredentials = useSetAuthCredentials();
     let temp, response;
 
     function openSignIn() {
@@ -34,7 +36,7 @@ export default function SignUp({signup, setSignup, setSignin}) {
         } else {
             response = await addUser(username, password);
             if (response) {
-                SetAuthCredentials(username, password);
+                setAuthCredentials(username, password, true, getCurrentTime());
                 alert("New account created successfully!");
                 // Cookies
             }

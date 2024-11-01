@@ -11,7 +11,7 @@ export const chechExists = async (userId) => {
 }
 
 export const checkSignIn = async (userId, password) => {
-    const response = await instance.get(`/users/${userId}/{noop}${password}`);
+    const response = await instance.get(`/users/${userId}/${password}`);
     return response.data;
 }
 

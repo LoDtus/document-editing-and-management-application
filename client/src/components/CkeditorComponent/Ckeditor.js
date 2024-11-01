@@ -95,7 +95,7 @@ export default function Ckeditor({isNew, isPreview, docValue, setValue}) {
 	}, [isNew]);
 
 	useEffect(() => {
-		if (isLayoutReady && editorRef) {
+		if (isLayoutReady && editorRef && docValue) {
 			editorRef.current.setData(docValue);
 		}
 	}, [editorReady, docValue, isLayoutReady]);

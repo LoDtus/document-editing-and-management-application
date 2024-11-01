@@ -11,27 +11,35 @@ let auth = {
     password: ''
 };
 
-export function SetAuthCredentials(username, password, remmemberMe, signinAt) {
-    auth.username = username;
-    auth.password = password;
-    
+export function useSetAuthCredentials(username, password, remmemberMe, signinAt) {
     const dispatch = useDispatch();
-    dispatch(authSlice.actions.setAuth({
-        username,
-        password,
-        remmemberMe,
-        signinAt
-    }));
+
+    const setAuthCredentials = (username, password, rememberMe, signinAt) => {
+        auth.username = username;
+        auth.password = password;
+        
+        dispatch(authSlice.actions.setAuth({
+            username,
+            password,
+            rememberMe,
+            signinAt
+        }));
+    };
+    return setAuthCredentials;
 }
 
 instance.interceptors.request.use(
     function (config) {
-        config.auth = {
-            // username: auth.username,
-            // password: auth.password,
-            username: 'phamthihoaithu',
-            password: '567',
-        };
+        const ignoreMethod = ["get"];
+        const ignoreUrl = [
+            '/users/',
+        ];
+        if (!ignoreMethod.includes(config.method) || !ignoreUrl.some(ignore => config.url.includes(ignore))) {
+            config.auth = {
+                username: auth.username,
+                password: auth.password,
+            };
+        }
         return config;
     }, function (error) {
         return Promise.reject(error);
@@ -42,11 +50,11 @@ instance.interceptors.response.use(
         return response;
     },
     function (error) {
-        if (error.response && error.response.status === 400) {
+        const statusList = [400, 401, 403,]
+        if (error.response && statusList.includes(error.response.status)) {
             return {data: null};
         }
         return Promise.reject(error);
     }
 );
-
 export default instance;
