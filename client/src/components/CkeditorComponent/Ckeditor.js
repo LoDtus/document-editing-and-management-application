@@ -80,6 +80,7 @@ export default function Ckeditor({isNew, isPreview, docValue, setValue}) {
 	const editorRef = useRef(null);
 	const previewRef = useRef(null);
 	const [isLayoutReady, setIsLayoutReady] = useState(false);
+	const [editorReady, setEditorReady] = useState(false);
 	const [previewReady, setPreviewReady] = useState(false);
 
 	useEffect(() => {
@@ -88,9 +89,16 @@ export default function Ckeditor({isNew, isPreview, docValue, setValue}) {
 	}, []);
 
 	useEffect(() => {
-		if (isNew)
+		if (isNew) {
 			editorRef.current.setData('');
+		}
 	}, [isNew]);
+
+	useEffect(() => {
+		if (isLayoutReady && editorRef) {
+			editorRef.current.setData(docValue);
+		}
+	}, [editorReady, docValue, isLayoutReady]);
 
 	useEffect(() => {
 		if (isPreview && previewRef && previewReady) {
@@ -98,7 +106,7 @@ export default function Ckeditor({isNew, isPreview, docValue, setValue}) {
             editableElement.contentEditable = false;
 			previewRef.current.setData(docValue);
 		}
-	}, [previewReady]);
+	}, [previewReady, docValue]);
 
 	const editorConfig = {
 		toolbar: {
@@ -333,8 +341,10 @@ export default function Ckeditor({isNew, isPreview, docValue, setValue}) {
 									<CKEditor
 										ref={editorRef}
 										onReady={editor => {
+											editorRef.current = editor;
 											editorToolbarRef.current.appendChild(editor.ui.view.toolbar.element);
 											editorMenuBarRef.current.appendChild(editor.ui.view.menuBarView.element);
+											setEditorReady(true);
 										}}
 										onAfterDestroy={() => {
 											if (editorToolbarRef.current)

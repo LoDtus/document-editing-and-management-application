@@ -1,12 +1,13 @@
 import { useDispatch } from "react-redux";
 import { convertTime } from "../utils/functions";
 import documentSlice from "../slices/documentSlice";
+import { getDocById } from "../utils/documentService";
 
 export default function DocumentItem({docId, saved, subject, modifyAt}) {
     const dispatch = useDispatch();
 
-    function openDoc(id) {
-        dispatch(documentSlice.actions.setDocId(docId));
+    async function openDoc(id) {
+        dispatch(documentSlice.actions.setDocId(id));
     }
 
     return (

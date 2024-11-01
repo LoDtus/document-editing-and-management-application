@@ -5,13 +5,13 @@ export const getAllItems = async (userId) => {
     return response.data;
 }
 
-export const getAllDocs = async (documentId) => {
-    const response = await instance.get(`/documents/${documentId}`);
+export const getAllDocs = async (userId) => {
+    const response = await instance.get(`/${userId}/documents`);
     return response.data;
 }
 
-export const getDocById = async (userId) => {
-    const response = await instance.get(`/${userId}/documents`);
+export const getDocById = async (documentId) => {
+    const response = await instance.get(`/documents/${documentId}`);
     return response.data;
 }
 
