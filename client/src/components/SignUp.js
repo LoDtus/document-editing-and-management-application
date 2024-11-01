@@ -54,6 +54,7 @@ export default function SignUp({signup, setSignup, setSignin}) {
                     <Input
                         className='basis-[70%]'
                         name="username-signup" id="username-signup"
+                        placeholder='Your username'
                         onBlur={(e) => setUsername(e.target.value)}
                     />
                 </div>
@@ -61,8 +62,8 @@ export default function SignUp({signup, setSignup, setSignin}) {
                     <label className='basis-[30%]' htmlFor="password-signup">New password: </label>
                     <Input.Password
                         className='basis-[70%]'
-                        placeholder=""
                         name="password-signup" id="password-signup"
+                        placeholder="Your password"
                         onBlur={(e) => setPassword(e.target.value)}
                         />
                 </div>
@@ -70,8 +71,8 @@ export default function SignUp({signup, setSignup, setSignin}) {
                     <label className='basis-[30%]' htmlFor="repassword-signup">Re-enter password: </label>
                     <Input.Password
                         className='basis-[70%]'
-                        placeholder=""
                         name="repassword-signup" id="repassword-signup"
+                        placeholder="Re-password"
                         onBlur={(e) => setRepassword(e.target.value)}
                         />
                 </div>

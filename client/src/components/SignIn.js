@@ -41,6 +41,7 @@ export default function SignIn({signin, setSignin, setSignup}) {
                     <Input
                         className='basis-[70%]'
                         name="username-signin" id="username-signin"
+                        placeholder="Your username"
                         onBlur={(e) => setUsername(e.target.value)}
                     />
                 </div>
@@ -48,8 +49,8 @@ export default function SignIn({signin, setSignin, setSignup}) {
                     <label className='w-[100px]' htmlFor="password-signin">Password: </label>
                     <Input.Password
                         className='basis-[70%]'
-                        placeholder=""
                         name="password-signin" id="password-signin"
+                        placeholder="Your password"
                         onBlur={(e) => setPassword(e.target.value)}
                     />
                 </div>
