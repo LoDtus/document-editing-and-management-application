@@ -1,21 +1,25 @@
 import { useEffect, useState } from 'react'
 import DocumentItem from './DocumentItem';
 import { getAllItems } from '../utils/documentService';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import documentSlice from '../slices/documentSlice';
+import { getAuth, getNewDoc } from '../redux/selectors';
+import { getCurrentTime } from '../utils/functions';
 
-function DocumentList() {
+export default function DocumentList() {
+    const dispatch  = useDispatch();
+    const authData  = useSelector(getAuth);
+    const isNew     = useSelector(getNewDoc);
     const [items, setItems] = useState([]);
-    const dispatch = useDispatch();
 
     useEffect(() => {
         (async() => {
-            const data = await getAllItems('phamthihoaithu');
+            const data = await getAllItems(authData.username);
             setItems(data);
-        })();
+        }) ();
     }, []);
 
-    function addPost() {
+    function createDoc() {
         dispatch(documentSlice.actions.setNewDoc(true));
     }
 
@@ -32,13 +36,21 @@ function DocumentList() {
                     border-[2px] border-dashed border-[#ccced1] rounded-md
                     sm:min-w-[180px] xl:h-[30px] xl:w-full sm:mb-2 xl:mb-2
                     duration-200 hover:cursor-pointer hover:border-black active:scale-90"
-                    onClick={addPost}>
-                    ADD A NEW POST
+                    onClick={createDoc}>
+                    NEW DOCUMENT
                 </div>
+                {isNew && <DocumentItem
+                        docId={-1}
+                        saved={false}
+                        subject={"Untitled"}
+                        modifyAt={getCurrentTime()}
+                    />
+                }
                 {items.length !== 0 && items.map((e, i) => (
                     <DocumentItem
                         key={i}
                         docId={e.document_id}
+                        saved={true}
                         subject={e.subject}
                         modifyAt={e.modify_at}
                     />
@@ -46,5 +58,4 @@ function DocumentList() {
             </div>
         </div>
     )
-}
-export default DocumentList;
+};

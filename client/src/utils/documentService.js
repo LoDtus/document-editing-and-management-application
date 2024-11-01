@@ -10,35 +10,33 @@ export const getAllDocs = async (documentId) => {
     return response.data;
 }
 
-export const getDocsById = async (userId) => {
+export const getDocById = async (userId) => {
     const response = await instance.get(`/${userId}/documents`);
     return response.data;
 }
 
-export const addDocs = async (userId, subject, content, thumbnail, createAt) => {
+export const addDoc = async (userId, subject, content, modifyAt) => {
     const response = await instance.post(`/documents`, {
         "user_id": userId,
         "subject": subject,
         "content": content,
-        "thumbnail": thumbnail,
-        "create_at": createAt
+        "modify_at": modifyAt
     });
     return (response.status === 200) ? true : false;
 }
 
-export const updateDocs = async (documentId, userId, subject, content, thumbnail, createAt) => {
+export const updateDoc = async (documentId, userId, subject, content, modifyAt) => {
     const response = await instance.put(`/documents`, {
         "document_id": documentId,
         "user_id": userId,
         "subject": subject,
         "content": content,
-        "thumbnail": thumbnail,
-        "create_at": createAt
+        "modify_at": modifyAt
     });
     return (response.status === 200) ? true : false;
 }
 
-export const deleteDocsById = async (documentId) => {
+export const deleteDocById = async (documentId) => {
     const response = await instance.delete(`/document/${documentId}`);
     return response.data;
 }

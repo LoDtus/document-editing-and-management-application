@@ -1,57 +1,36 @@
 import { useNavigate } from 'react-router-dom';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import documentSlice from '../slices/documentSlice';
+import { getSaveDb, getSaveLocal } from '../redux/selectors';
 
 export default function Profile({setSignin, setSignup}) {
     const navigate = useNavigate();
-    const [edit, setEdit] = useState(false);
-    const fileInp = useRef(null); 
+    const dispatch = useDispatch();
+    const saveLocal = useSelector(getSaveLocal);
+    const fileInp = useRef(null);
+    const [edit, setEdit] = useState(true);
+    const [fisrtRender, setFirstRender] = useState(true);
 
     function preview() {
-        setEdit(!edit);
-        navigate(edit ? '/' : '/preview');
+        if (edit) {
+            dispatch(documentSlice.actions.setPreviewDoc(true));
+        } else {
+            dispatch(documentSlice.actions.setPreviewDoc(false));
+        }
     }
-    function save() {
-        // if (value === '') {
-        //     alert('Chưa có dữ liệu')
-        // } else {
-            // let temp = document.createElement('div');
-            // temp.innerHTML = value;
-            // let elements = temp.children;
 
-            // // Lấy ra tiêu đề bài viết, dòng Heading khác rỗng đầu tiên trong bài viết sẽ được xác định là tiêu đề
-            // // Nếu không, hệ thống sẽ gán mặc định tiêu đề bài viết đó là "Untitled"
-            // let tempTitle = null;
-            // for (let i=0; i<elements.length; i++) {
-            //     const tagName = elements[i].tagName.toLowerCase();
-            //     if (tagName !== 'h1' && tagName !== 'h2' && tagName !== 'h3' && tagName !== 'h4')
-            //         break
-            //     if (elements[i].innerText.trim() !== '') {
-            //         tempTitle = elements[i];
-            //         break;
-            //     }
-            // }
-            // const title = tempTitle ? tempTitle.outerHTML : '<h2><strong>Untitled</strong></h2>';
+    useEffect(() => {
+        if (saveLocal > 0) {
+            navigate(edit ? '/preview' : '/');
+            setEdit(!edit);
+        }
+    }, [saveLocal]);
 
-            // // Lấy ra 3 phần tử còn lại trong bài viết trừ tiêu đề và các phần tử rỗng
-            // const contentElements = [];
-            // elements = Array.from(temp.childNodes);
-            // for (let i=0; i<elements.length; i++) {
-            //     if (elements[i] !== tempTitle && elements[i].innerText.trim() !== '')
-            //         contentElements.push(elements[i]);
-            //     if (contentElements.length > 2)
-            //         break;
-            // }
-            // const contentHtml = contentElements.map(node => node.outerHTML).join('');
-
-            // console.log(contentElements);
-            // console.log("title", title);
-            // console.log("content", contentHtml);
-
-            // // localStorage.setItem('post', value);
-            // // alert('Lưu thành công!');
-            // temp = null;
-        // }
+    function saveDoc() {
+        dispatch(documentSlice.actions.setSaveDb(true));
     }
+
     function importFile() {
         fileInp.current.click();
     }
@@ -80,10 +59,10 @@ export default function Profile({setSignin, setSignup}) {
             <div className='btnProfile sm:flex xl:block justify-between'>
                 <div className="title basis-[25%] sm:mr-1 xl:mx-0 p-3 flex justify-center items-center bg-[#57baa0] mb-2 rounded-md 
                     duration-200 hover:cursor-pointer hover:bg-[#6ccab1] active:scale-90"
-                onClick={() => save()}>Save</div>
+                onClick={() => saveDoc()}>Save</div>
                 <div className="title basis-[25%] sm:mx-1 xl:mx-0 p-3 flex justify-center items-center bg-[#937152] mb-2 rounded-md 
                     duration-200 hover:cursor-pointer hover:bg-[#a28161] active:scale-90"
-                onClick={() => preview()}>{edit ? 'Continue Editing' : 'Preview'}</div>
+                onClick={() => preview()}>{edit ? 'Preview' : 'Continue Editing'}</div>
                 <div className="title basis-[25%] sm:mx-1 xl:mx-0 p-3 flex justify-center items-center bg-[#f2b843] mb-2 rounded-md 
                     duration-200 hover:cursor-pointer hover:bg-[#f7c563] active:scale-90"
                 onClick={() => importFile()}>Import</div>

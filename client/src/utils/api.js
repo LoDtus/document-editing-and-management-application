@@ -1,4 +1,6 @@
 import axios from 'axios';
+import authSlice from '../slices/authSlice';
+import { useDispatch } from 'react-redux';
 
 const instance = axios.create({
     baseURL: 'http://localhost:8080'
@@ -9,9 +11,17 @@ let auth = {
     password: ''
 };
 
-export function setAuthCredentials(username, password) {
+export function SetAuthCredentials(username, password, remmemberMe, signinAt) {
     auth.username = username;
     auth.password = password;
+    
+    const dispatch = useDispatch();
+    dispatch(authSlice.actions.setAuth({
+        username,
+        password,
+        remmemberMe,
+        signinAt
+    }));
 }
 
 instance.interceptors.request.use(

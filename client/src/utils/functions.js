@@ -10,3 +10,14 @@ export function convertTime(timestamp) {
     const result = `${day}/${month}/${year}`;
     return result;
 }
+export function getSubject(value) {
+    let temp = document.createElement('div');
+    temp.innerHTML = value;
+
+    let subject = temp.querySelector("h1").textContent.trim();
+    subject = (subject === '') ? 'Untitled' : subject;
+
+    temp.innerHTML = '';
+    temp = null;
+    return subject;
+}

@@ -73,7 +73,7 @@ import {
 } from "ckeditor5";
 import 'ckeditor5/ckeditor5.css';
 
-export default function Ckeditor({isNew, preview, setValue}) {
+export default function Ckeditor({isNew, isPreview, docValue, setValue}) {
 	const editorContainerRef = useRef(null);
 	const editorMenuBarRef = useRef(null);
 	const editorToolbarRef = useRef(null);
@@ -88,15 +88,15 @@ export default function Ckeditor({isNew, preview, setValue}) {
 	}, []);
 
 	useEffect(() => {
-		if (isNew) {
+		if (isNew)
 			editorRef.current.setData('');
-		}
 	}, [isNew]);
 
 	useEffect(() => {
-		if (preview && previewRef && previewReady) {
+		if (isPreview && previewRef && previewReady) {
 			const editableElement = previewRef.current.ui.view.editable.element;
             editableElement.contentEditable = false;
+			previewRef.current.setData(docValue);
 		}
 	}, [previewReady]);
 
@@ -317,7 +317,7 @@ export default function Ckeditor({isNew, preview, setValue}) {
 		<div className='sm:min-w-[100%] sm:max-w-[95vw] lg:max-w-[100%] overflow-x-auto'>
 			<div className='main-container sm:min-w-[100%] lg:max-w-[100%]'>
 				<div className="editor-container editor-container_document-editor" ref={editorContainerRef}>
-					{preview ? <div></div> : 
+					{isPreview ? <div></div> : 
 						<div>
 							<div className="editor-container__menu-bar" ref={editorMenuBarRef}></div>
 							<div className="editor-container__toolbar" ref={editorToolbarRef}></div>
@@ -328,11 +328,11 @@ export default function Ckeditor({isNew, preview, setValue}) {
 						sm:min-w-[100%] lg:max-w-[100%]
 						flex justify-center">
 						<div className="editor-container__editor">
-							<div className='editArea' ref={editorRef}>
-								{isLayoutReady && !preview && (
+							<div className='editArea'>
+								{isLayoutReady && !isPreview && (
 									<CKEditor
+										ref={editorRef}
 										onReady={editor => {
-											editorRef.current = editor;
 											editorToolbarRef.current.appendChild(editor.ui.view.toolbar.element);
 											editorMenuBarRef.current.appendChild(editor.ui.view.menuBarView.element);
 										}}
@@ -350,7 +350,7 @@ export default function Ckeditor({isNew, preview, setValue}) {
 										}}
 									/>
 								)}
-								{isLayoutReady && preview && (
+								{isLayoutReady && isPreview && (
 									<CKEditor
 										ref={previewRef}
 										onReady={editor => {

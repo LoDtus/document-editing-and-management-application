@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { addUser, chechExists } from '../utils/userService';
 import { Input } from 'antd';
-import { setAuthCredentials } from '../utils/api';
+import { SetAuthCredentials } from '../utils/api';
 
 export default function SignUp({signup, setSignup, setSignin}) {
     const [username, setUsername] = useState('');
@@ -34,7 +34,7 @@ export default function SignUp({signup, setSignup, setSignin}) {
         } else {
             response = await addUser(username, password);
             if (response) {
-                setAuthCredentials(username, password);
+                SetAuthCredentials(username, password);
                 alert("New account created successfully!");
                 // Cookies
             }

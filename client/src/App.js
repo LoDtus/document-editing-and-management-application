@@ -9,13 +9,13 @@ import Preview from "./components/Preview";
 import Profile from "./components/Profile";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
-import { setAuthCredentials } from './utils/api';
+import { SetAuthCredentials } from './utils/api';
 import { convertTime, getCurrentTime } from "./utils/functions";
 
 export default function App() {
     const [signin, setSignin] = useState(false);
     const [signup, setSignup] = useState(false);
-    setAuthCredentials('phamthihoaithu', '567');
+    SetAuthCredentials('phamthihoaithu', '567');
 
 	return (
 		<div className="App bg-[#fafafa] flex flex-col justify-center items-center">

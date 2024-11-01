@@ -1,11 +1,13 @@
-import { useState } from "react"
-import { setAuthCredentials } from "../utils/api";
+import { useEffect, useState } from "react"
+import { SetAuthCredentials } from "../utils/api";
 import { Input } from 'antd';
 import { checkSignIn } from "../utils/userService";
+import { getCurrentTime } from "../utils/functions";
 
 export default function SignIn({signin, setSignin, setSignup}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
     let response;
 
     function openSignUp() {
@@ -17,7 +19,7 @@ export default function SignIn({signin, setSignin, setSignup}) {
         response = await checkSignIn(username, password);
         if (response) {
             console.log("Done!");
-            setAuthCredentials(username, password);
+            SetAuthCredentials(username, password, rememberMe, getCurrentTime());
             // Cookies
             return;
         } else {
@@ -51,7 +53,9 @@ export default function SignIn({signin, setSignin, setSignup}) {
                 </div>
                 <div className="flex items-center mb-2 h-8">
                     <div className="grow flex items-center">
-                        <input type="checkbox" name="rememberMe" id="rememberMe" className='h-4 w-4 mr-1 hover:cursor-pointer'/>
+                        <input type="checkbox" name="rememberMe" id="rememberMe" className='h-4 w-4 mr-1 hover:cursor-pointer'
+                            onChange={(e) => setRememberMe(e.target.checked)}
+                        />
                         <label htmlFor="rememberMe" className="hover:cursor-pointer">Remember me</label>
                     </div>
                     <span className='text-[#0b57d4] duration-200 hover:cursor-pointer hover:text-[#307fff] active:scale-90'>Forgot password?</span>

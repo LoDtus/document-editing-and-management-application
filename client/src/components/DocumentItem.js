@@ -1,19 +1,30 @@
+import { useDispatch } from "react-redux";
 import { convertTime } from "../utils/functions";
+import documentSlice from "../slices/documentSlice";
 
-function DocumentItem({docId, subject, modifyAt}) {
+export default function DocumentItem({docId, saved, subject, modifyAt}) {
+    const dispatch = useDispatch();
+
     function openDoc(id) {
-        
+        dispatch(documentSlice.actions.setDocId(docId));
     }
 
     return (
-        <div className="documentItem sm:ml-2 xl:mx-0 sm:min-w-[300px]
+        <div className={saved
+        ? `documentItem sm:ml-2 xl:mx-0 sm:min-w-[300px]
         mb-2 py-3 px-5 min-h-[100px] flex items-center
         bg-white border border-[#ccced1] rounded-md
-        duration-200 hover:cursor-pointer hover:border-black active:scale-90"
+        duration-200 hover:cursor-pointer hover:border-black active:scale-90`
+        : `documentItem sm:ml-2 xl:mx-0 sm:min-w-[300px]
+        mb-2 py-3 px-5 min-h-[100px] flex items-center
+        bg-white border border-[#77c2fc] rounded-md
+        duration-200 hover:cursor-pointer hover:border-[#4096ff] active:scale-90`}
         onClick={() => openDoc(docId)}>
             <div className="grow">
                 <div className="w-fit">
-                    <h1 className='title font-semibold text-md w-fit line-clamp-2'>{subject}</h1>
+                    <h1 className={saved ? 'title font-semibold text-md w-fit line-clamp-2' : 'title font-semibold text-md w-fit line-clamp-2 text-[#4096ff]'}>
+                        {subject}
+                    </h1>
                 </div>
                 <div className="flex items-end text-[#8a8a8a]">
                     {convertTime(modifyAt)}
@@ -25,5 +36,4 @@ function DocumentItem({docId, subject, modifyAt}) {
             </svg>
         </div>
     )
-}
-export default DocumentItem;
+};
