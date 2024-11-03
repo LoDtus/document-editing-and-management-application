@@ -69,3 +69,6 @@ body {
 .ck-editor__editable {
     min-height: 600px;
 }
+.documentItem:active:not(:has(svg:hover)) {
+    transform: scale(0.9);
+}

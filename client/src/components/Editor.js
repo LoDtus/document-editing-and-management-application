@@ -40,10 +40,11 @@ export default function Editor() {
     }, [isPreview]);
 
     async function saveDoc(documentId, userId, subject, content, modifyAt) {
-        if (documentId === -1)
+        if (documentId === -1) {
             return await addDoc(userId, subject, content, modifyAt);
-        else
+        } else {
             return await updateDoc(documentId, userId, subject, content, modifyAt);
+        }
     }
 
     useEffect(() => {
@@ -57,8 +58,8 @@ export default function Editor() {
         const content   = value;
         const modifyAt  = getCurrentTime();
 
-        // const response = saveDoc(docId, userId, subject, content, modifyAt);
-        // console.log(response);
+        const response = saveDoc(docId, userId, subject, content, modifyAt);
+        console.log(response);
     }, [saveDb]);
 
     return (

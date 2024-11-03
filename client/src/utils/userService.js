@@ -25,7 +25,6 @@ export const addUser = async (userId, password) => {
 }
 
 export const updateUser = async (oldUserId, newUserId, password) => {
-    console.log(oldUserId, newUserId, password);
     const response = await instance.put(`/users/${oldUserId}`, {
         "user_id": newUserId,
         "user_password": `{noop}${password}`,

@@ -5,7 +5,7 @@ export default createSlice({
     initialState: {
         documentId: null,
         value: '',
-        isNew: false,
+        isNew: true,
         isPreview: false,
         saveLocal: 0,
         saveDb: false,

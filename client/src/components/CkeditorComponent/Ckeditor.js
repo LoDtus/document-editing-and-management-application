@@ -89,16 +89,16 @@ export default function Ckeditor({isNew, isPreview, docValue, setValue}) {
 	}, []);
 
 	useEffect(() => {
-		if (isNew) {
+		if (isNew && isLayoutReady && editorRef.current.setData) {
 			editorRef.current.setData('');
 		}
 	}, [isNew]);
 
 	useEffect(() => {
-		if (isLayoutReady && editorRef && docValue) {
+		if (!isPreview && isLayoutReady && editorRef.current.setData) {
 			editorRef.current.setData(docValue);
 		}
-	}, [editorReady, docValue, isLayoutReady]);
+	}, [editorReady, docValue]);
 
 	useEffect(() => {
 		if (isPreview && previewRef && previewReady) {

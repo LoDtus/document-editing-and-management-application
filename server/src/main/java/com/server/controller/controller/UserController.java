@@ -1,7 +1,9 @@
 package com.server.controller.controller;
 
+import com.server.model.entity.Document;
 import com.server.model.entity.Role;
 import com.server.model.entity.User;
+import com.server.service.document.DocumentService;
 import com.server.service.role.RoleService;
 import com.server.service.user.UserService;
 import org.slf4j.Logger;
@@ -17,10 +19,12 @@ public class UserController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private UserService userService;
     private RoleService roleService;
+    private DocumentService documentService;
 
-    public UserController(UserService userService, RoleService roleService) {
+    public UserController(UserService userService, RoleService roleService, DocumentService documentService) {
         this.userService = userService;
         this.roleService = roleService;
+        this.documentService = documentService;
     }
 
     @GetMapping("/users")
@@ -61,23 +65,35 @@ public class UserController {
     }
 
     @PutMapping("/users/{userId}")
-    public User saveUser(@PathVariable String userId, @RequestBody User user) {
+    public User updateUser(@PathVariable String userId, @RequestBody User user) {
         User result = userService.findById(userId);
         if (result == null) {
             throw new IllegalArgumentException("User id not found - " + userId);
         }
-        roleService.deleteById(userId);
-        userService.deleteById(userId);
-        // Update id in document
+        if (!Objects.equals(user.getUser_id(), userId)) {
+            User newUser = new User(
+                    user.getUser_id(),
+                    user.getUser_password(),
+                    user.getActive()
+            );
+            userService.save(newUser);
 
-        User dbUser = userService.save(user);
+            List<Document> allDocuments = documentService.findAllByUserId(userId);
+            for (Document document : allDocuments) {
+                document.setUser_id(user.getUser_id());
+            }
 
-        Role dbRole = new Role();
-        dbRole.setUser_id(user.getUser_id());
-        dbRole.setRole("ROLE_MEMBER");
-        roleService.save(dbRole);
+            roleService.deleteById(userId);
+            Role newRole = new Role(
+                    user.getUser_id(),
+                    "ROLE_MEMEBER"
+            );
+            roleService.save(newRole);
 
-        return dbUser;
+            userService.deleteById(userId);
+            return newUser;
+        }
+        return userService.save(user);
     }
 
     @DeleteMapping("/users/{userId}")

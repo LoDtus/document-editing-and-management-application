@@ -22,8 +22,6 @@ export default function Profile({setSignin, setSignup}) {
     const SetAuthCredentials = useSetAuthCredentials();
 
     useEffect(() => {
-        console.log(auth.username);
-        
         if (auth.username === '') {
             setProfile(false);
         } else {
@@ -52,17 +50,6 @@ export default function Profile({setSignin, setSignup}) {
         dispatch(documentSlice.actions.setSaveDb(true));
     }
 
-    function importFile() {
-        fileInp.current.click();
-    }
-    function handleFileImport(event) {
-        const file = event.target.files[0];
-        if (file) {
-            console.log("File uploaded:", file.name);
-            // Xử lý file tải lên tại đây (ví dụ: gửi lên server)
-        }
-    }
-
     useEffect(() => {
         if (newUsername === '' || newPassword === '') {
             setDiff(false);
@@ -89,6 +76,18 @@ export default function Profile({setSignin, setSignup}) {
 
     function signOut() {
         SetAuthCredentials('', '', false, getCurrentTime());
+    }
+
+    
+    function importFile() {
+        fileInp.current.click();
+    }
+    function handleFileImport(event) {
+        const file = event.target.files[0];
+        if (file) {
+            console.log("File uploaded:", file.name);
+            // Xử lý file tải lên tại đây (ví dụ: gửi lên server)
+        }
     }
 
     return (
