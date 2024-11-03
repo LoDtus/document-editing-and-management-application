@@ -6,7 +6,7 @@ import { getAuth, getSaveDb, getSaveLocal } from '../redux/selectors';
 import { Input } from 'antd';
 import { useSetAuthCredentials } from '../utils/api';
 import { getCurrentTime } from '../utils/functions';
-import { updateUser } from '../utils/userService';
+import { deleteUserById, updateUser } from '../utils/userService';
 
 export default function Profile({setSignin, setSignup}) {
     const navigate  = useNavigate();
@@ -81,6 +81,12 @@ export default function Profile({setSignin, setSignup}) {
             SetAuthCredentials(newUsername, newPassword, true, getCurrentTime());
     }
 
+    async function deleteInfor() {
+        const response = await deleteUserById(auth.username);
+        if (response)
+            SetAuthCredentials('', '', false, getCurrentTime());
+    }
+
     function signOut() {
         SetAuthCredentials('', '', false, getCurrentTime());
     }
@@ -131,7 +137,7 @@ export default function Profile({setSignin, setSignup}) {
                     </button>}
                     <button className='basis-[50%] ml-1 p-3 flex justify-center items-center rounded-md bg-[#e7676a]
                         duration-200 hover:bg-[#ee7e80] active:scale-90'
-                        onClick={() => updateInfor()}>
+                        onClick={() => deleteInfor()}>
                         Delete
                     </button>
                 </div>
