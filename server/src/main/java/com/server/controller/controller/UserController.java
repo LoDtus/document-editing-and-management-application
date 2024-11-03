@@ -54,7 +54,7 @@ public class UserController {
 
         Role dbRole = new Role();
         dbRole.setUser_id(user.getUser_id());
-        dbRole.setRole("GUEST");
+        dbRole.setRole("ROLE_MEMBER");
         roleService.save(dbRole);
 
         return dbUser;

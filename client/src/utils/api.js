@@ -30,11 +30,9 @@ export function useSetAuthCredentials(username, password, remmemberMe, signinAt)
 
 instance.interceptors.request.use(
     function (config) {
-        const ignoreMethod = ["get"];
-        const ignoreUrl = [
-            '/users/',
-        ];
-        if (!ignoreMethod.includes(config.method) || !ignoreUrl.some(ignore => config.url.includes(ignore))) {
+        if (    (config.method === "get"    && !["/users/"].some(ignore => config.url.includes(ignore)) )
+            ||  (config.method === "post"   && !["/users"].some(ignore => config.url.includes(ignore)) )
+        ) {
             config.auth = {
                 username: auth.username,
                 password: auth.password,
@@ -50,7 +48,7 @@ instance.interceptors.response.use(
         return response;
     },
     function (error) {
-        const statusList = [400, 401, 403,]
+        const statusList = [400, 401, 403]
         if (error.response && statusList.includes(error.response.status)) {
             return {data: null};
         }

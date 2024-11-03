@@ -8,9 +8,9 @@ export default function SignUp({signup, setSignup, setSignin}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [repassword, setRepassword] = useState('');
-    const [usernameExists, setUsernameExists] = useState(false);
+    const [tempUsername, setTempUsername] = useState('');
     const setAuthCredentials = useSetAuthCredentials();
-    let temp, response;
+    let response;
 
     function openSignIn() {
         setSignup(false);
@@ -18,15 +18,13 @@ export default function SignUp({signup, setSignup, setSignin}) {
     }
 
     async function signUp() {
-        if (!usernameExists || temp !== username) {
-            response = await chechExists(username);
-            if (response) {
+        if (tempUsername !== username) {
+            response = await chechExists(username.trim());
+            if (!response) {
                 console.log("Username Done!");
-                setUsernameExists(true);
-                temp = username;
+                setTempUsername(username);
             } else {
                 alert("Username already exists!");
-                setUsernameExists(false);
                 return;
             }
         }
@@ -34,7 +32,7 @@ export default function SignUp({signup, setSignup, setSignin}) {
             alert("Wrong Repassword!");
             return;
         } else {
-            response = await addUser(username, password);
+            response = await addUser(username.trim(), password);
             if (response) {
                 setAuthCredentials(username, password, true, getCurrentTime());
                 alert("New account created successfully!");

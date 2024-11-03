@@ -9,7 +9,6 @@ import Preview from "./components/Preview";
 import Profile from "./components/Profile";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
-import { SetAuthCredentials } from './utils/api';
 
 export default function App() {
     const [signin, setSignin] = useState(false);

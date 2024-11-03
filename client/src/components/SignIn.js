@@ -20,7 +20,7 @@ export default function SignIn({signin, setSignin, setSignup}) {
         response = await checkSignIn(username.trim(), password);
         if (response) {
             console.log("Done!");
-            setAuthCredentials (username, password, rememberMe, getCurrentTime());
+            setAuthCredentials(username, password, rememberMe, getCurrentTime());
             // Cookies
             setSignin(false);
             return;
