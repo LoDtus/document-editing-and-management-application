@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import documentSlice from '../slices/documentSlice';
 import { getAuth, getSaveDb, getSaveLocal } from '../redux/selectors';
 import { Input } from 'antd';
+import { useSetAuthCredentials } from '../utils/api';
+import { getCurrentTime } from '../utils/functions';
 
 export default function Profile({setSignin, setSignup}) {
     const navigate  = useNavigate();
@@ -13,12 +15,18 @@ export default function Profile({setSignin, setSignup}) {
     const auth      = useSelector(getAuth);
     const [edit, setEdit] = useState(true);
     const [profile, setProfile] = useState(false);
+    const [newUsername, setNewUsername] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [diff, setDiff] = useState(false);
+    const SetAuthCredentials = useSetAuthCredentials();
 
     useEffect(() => {
         if (auth.username === '') {
             setProfile(false);
         } else {
             setProfile(true);
+            setNewUsername(auth.username);
+            setNewPassword(auth.password);
         }
     }, [auth.username]);
 
@@ -52,12 +60,24 @@ export default function Profile({setSignin, setSignup}) {
         }
     }
 
-    function updateInfor() {
+    useEffect(() => {
+        if (auth.username === newUsername
+            || auth.password === newPassword
+            || newUsername === ''
+            || newPassword === ''
+        ) {
+            setDiff(false);
+        } else {
+            setDiff(true);
+        }
+    }, [newUsername, newPassword]);
 
+    function updateInfor() {
+        
     }
 
     function signOut() {
-
+        SetAuthCredentials('', '', false, getCurrentTime());
     }
 
     return (
@@ -81,7 +101,8 @@ export default function Profile({setSignin, setSignup}) {
                         className='font-normal basis-[70%]'
                         name="username-profile" id="username-profile"
                         placeholder='Your username'
-                        value={auth.username}
+                        value={newUsername}
+                        onChange={(e) => setNewUsername(e.target.value)}
                     />
                 </div>
                 <div className='text-black flex items-center mb-2'>
@@ -90,15 +111,19 @@ export default function Profile({setSignin, setSignup}) {
                         className='font-normal basis-[70%]'
                         name="password-profile" id="password-profile"
                         placeholder='Your password'
-                        value={auth.password}
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
                     />
                 </div>
                 <div className='flex mb-2'>
-                    <button className='basis-[50%] mr-1 p-3 flex justify-center items-center rounded-md bg-[#698aff]
+                    {diff && <button className='basis-[50%] mr-1 p-3 flex justify-center items-center rounded-md bg-[#698aff]
                         duration-200 hover:bg-[#7b97ff] active:scale-90'
                         onClick={() => updateInfor()}>
                         Update
-                    </button>
+                    </button>}
+                    {!diff && <button className='basis-[50%] mr-1 p-3 flex justify-center items-center rounded-md bg-[#98a2ae]'>
+                        Update
+                    </button>}
                     <button className='basis-[50%] ml-1 p-3 flex justify-center items-center rounded-md bg-[#e7676a]
                         duration-200 hover:bg-[#ee7e80] active:scale-90'
                         onClick={() => updateInfor()}>

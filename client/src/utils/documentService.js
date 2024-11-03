@@ -2,8 +2,6 @@ import instance from './api';
 
 export const getAllItems = async (userId) => {
     const response = await instance.get(`/${userId}/itemDocuments`);
-    console.log(response);
-    
     return response.data;
 }
 
