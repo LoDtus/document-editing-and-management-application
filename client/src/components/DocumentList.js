@@ -19,8 +19,10 @@ export default function DocumentList() {
                 setItems(data);
             };
             getItemsDoc();
+            return;
         }
-    }, [authData.username]);
+        setItems([]);
+    }, [authData]);
 
     function createDoc() {
         dispatch(documentSlice.actions.setNewDoc(true));

@@ -86,7 +86,7 @@ public class UserController {
             roleService.deleteById(userId);
             Role newRole = new Role(
                     user.getUser_id(),
-                    "ROLE_MEMEBER"
+                    "ROLE_MEMBER"
             );
             roleService.save(newRole);
 
@@ -101,6 +101,10 @@ public class UserController {
         User dbUser = userService.findById(userId);
         if (dbUser == null) {
             throw new RuntimeException("User id not found - " + userId);
+        }
+        List<Document> allDocuments = documentService.findAllByUserId(userId);
+        for (Document document : allDocuments) {
+            documentService.deleteById(document.getDocument_id());
         }
         roleService.deleteById(userId);
         userService.deleteById(userId);

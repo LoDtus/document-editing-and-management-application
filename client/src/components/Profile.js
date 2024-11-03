@@ -19,7 +19,7 @@ export default function Profile({setSignin, setSignup}) {
     const [newUsername, setNewUsername] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [diff, setDiff] = useState(false);
-    const SetAuthCredentials = useSetAuthCredentials();
+    const setAuthCredentials = useSetAuthCredentials();
 
     useEffect(() => {
         if (auth.username === '') {
@@ -65,17 +65,17 @@ export default function Profile({setSignin, setSignup}) {
     async function updateInfor() {
         const response = await updateUser(auth.username, newUsername, newPassword);
         if (response)
-            SetAuthCredentials(newUsername, newPassword, true, getCurrentTime());
+            setAuthCredentials(newUsername, newPassword, true, getCurrentTime());
     }
 
     async function deleteInfor() {
         const response = await deleteUserById(auth.username);
         if (response)
-            SetAuthCredentials('', '', false, getCurrentTime());
+            setAuthCredentials('', '', false, getCurrentTime());
     }
 
     function signOut() {
-        SetAuthCredentials('', '', false, getCurrentTime());
+        setAuthCredentials('', '', false, getCurrentTime());
     }
 
     
