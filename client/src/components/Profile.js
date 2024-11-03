@@ -6,6 +6,7 @@ import { getAuth, getSaveDb, getSaveLocal } from '../redux/selectors';
 import { Input } from 'antd';
 import { useSetAuthCredentials } from '../utils/api';
 import { getCurrentTime } from '../utils/functions';
+import { updateUser } from '../utils/userService';
 
 export default function Profile({setSignin, setSignup}) {
     const navigate  = useNavigate();
@@ -21,6 +22,8 @@ export default function Profile({setSignin, setSignup}) {
     const SetAuthCredentials = useSetAuthCredentials();
 
     useEffect(() => {
+        console.log(auth.username);
+        
         if (auth.username === '') {
             setProfile(false);
         } else {
@@ -61,19 +64,21 @@ export default function Profile({setSignin, setSignup}) {
     }
 
     useEffect(() => {
-        if (auth.username === newUsername
-            || auth.password === newPassword
-            || newUsername === ''
-            || newPassword === ''
-        ) {
+        if (newUsername === '' || newPassword === '') {
             setDiff(false);
-        } else {
-            setDiff(true);
+            return;
         }
-    }, [newUsername, newPassword]);
+        if (auth.username !== newUsername || auth.password !== newPassword) {
+            setDiff(true);
+        } else {
+            setDiff(false);
+        }
+    }, [auth, newUsername, newPassword]);
 
-    function updateInfor() {
-        
+    async function updateInfor() {
+        const response = await updateUser(auth.username, newUsername, newPassword);
+        if (response)
+            SetAuthCredentials(newUsername, newPassword, true, getCurrentTime());
     }
 
     function signOut() {

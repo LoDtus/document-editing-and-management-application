@@ -24,9 +24,10 @@ export const addUser = async (userId, password) => {
     return response.status === 200;
 }
 
-export const updateUser = async (userId, password) => {
-    const response = await instance.put(`/users`, {
-        "user_id": userId,
+export const updateUser = async (oldUserId, newUserId, password) => {
+    console.log(oldUserId, newUserId, password);
+    const response = await instance.put(`/users/${oldUserId}`, {
+        "user_id": newUserId,
         "user_password": `{noop}${password}`,
         "active": 1
     });

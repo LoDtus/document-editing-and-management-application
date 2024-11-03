@@ -59,7 +59,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/users/check/{userId}").permitAll()
                 .requestMatchers(HttpMethod.GET, "/users/{userId}/{passwordId}").permitAll()
                 .requestMatchers(HttpMethod.POST, "/users").permitAll()
-                .requestMatchers(HttpMethod.PUT, "/users").hasRole("MEMBER")
+                .requestMatchers(HttpMethod.PUT, "/users/{userId}").hasRole("MEMBER")
                 .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("MEMBER")
 
                 .requestMatchers(HttpMethod.GET, "/documents/**").hasRole("MEMBER")

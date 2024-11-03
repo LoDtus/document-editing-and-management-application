@@ -60,13 +60,24 @@ public class UserController {
         return dbUser;
     }
 
-    @PutMapping("/users")
-    public User saveUser(@RequestBody User user) {
-        User result = userService.findById(user.getUser_id());
+    @PutMapping("/users/{userId}")
+    public User saveUser(@PathVariable String userId, @RequestBody User user) {
+        User result = userService.findById(userId);
         if (result == null) {
-            throw new IllegalArgumentException("User id not found - " + user.getUser_id());
+            throw new IllegalArgumentException("User id not found - " + userId);
         }
-        return userService.save(user);
+        roleService.deleteById(userId);
+        userService.deleteById(userId);
+        // Update id in document
+
+        User dbUser = userService.save(user);
+
+        Role dbRole = new Role();
+        dbRole.setUser_id(user.getUser_id());
+        dbRole.setRole("ROLE_MEMBER");
+        roleService.save(dbRole);
+
+        return dbUser;
     }
 
     @DeleteMapping("/users/{userId}")
