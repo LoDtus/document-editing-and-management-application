@@ -1,19 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
 import { convertTime } from "../utils/functions";
 import documentSlice from "../slices/documentSlice";
-import { useState } from "react";
 
 export default function DocumentItem({docId, saved, subject, modifyAt, deleteDoc}) {
     const dispatch = useDispatch();
-    const [deleted, setDeleted] = useState(false);
 
     async function openDoc(id) {
         dispatch(documentSlice.actions.setDocId(id));
     }
 
     return (
-        <div className={deleted ? 'hidden'
-        : (saved
+        <div className={saved
         ? `documentItem sm:ml-2 xl:mx-0 sm:min-w-[300px]
         mb-2 py-3 px-5 min-h-[100px] flex items-center
         bg-white border border-[#ccced1] rounded-md
@@ -21,7 +18,7 @@ export default function DocumentItem({docId, saved, subject, modifyAt, deleteDoc
         : `documentItem sm:ml-2 xl:mx-0 sm:min-w-[300px]
         mb-2 py-3 px-5 min-h-[100px] flex items-center
         bg-white border border-[#77c2fc] rounded-md
-        duration-200 hover:cursor-pointer hover:border-[#4096ff]`)}
+        duration-200 hover:cursor-pointer hover:border-[#4096ff]`}
         onClick={() => openDoc(docId)}>
             <div className="grow">
                 <div className="w-fit">
@@ -37,9 +34,6 @@ export default function DocumentItem({docId, saved, subject, modifyAt, deleteDoc
                 duration-200 hover:fill-red-600 active:scale-90"
                 onClick={(e) => {
                     e.stopPropagation();
-                    if (docId !== -1) {
-                        setDeleted(true);
-                    }
                     deleteDoc(docId);
                 }}>
                 <svg className="w-[20px] aspect-square"

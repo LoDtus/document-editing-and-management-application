@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import documentSlice from '../slices/documentSlice';
-import { getAuth, getSaveDb, getSaveLocal } from '../redux/selectors';
+import { getAuth, getDocValue, getSaveDb, getSaveLocal } from '../redux/selectors';
 import { Input } from 'antd';
 import { useSetAuthCredentials } from '../utils/api';
 import { getCurrentTime } from '../utils/functions';
@@ -12,6 +12,7 @@ export default function Profile({setSignin, setSignup}) {
     const navigate  = useNavigate();
     const dispatch  = useDispatch();
     const saveLocal = useSelector(getSaveLocal);
+    const docValue  = useSelector(getDocValue);
     const fileInp   = useRef(null);
     const auth      = useSelector(getAuth);
     const [edit, setEdit] = useState(true);
@@ -47,7 +48,11 @@ export default function Profile({setSignin, setSignup}) {
     }, [saveLocal]);
 
     function saveDoc() {
-        dispatch(documentSlice.actions.setSaveDb(true));
+        if (auth.username === '' || auth.password === '') {
+            setSignin(true);
+        } else {
+            dispatch(documentSlice.actions.setSaveDb(true));
+        }
     }
 
     useEffect(() => {
@@ -76,6 +81,12 @@ export default function Profile({setSignin, setSignup}) {
 
     function signOut() {
         setAuthCredentials('', '', false, getCurrentTime());
+        dispatch(documentSlice.actions.setNewDoc(true));
+        if (docValue === '')
+            dispatch(documentSlice.actions.setDocValue(' '));
+        else
+            dispatch(documentSlice.actions.setDocValue(''));
+        return;
     }
 
     

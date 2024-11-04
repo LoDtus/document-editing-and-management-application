@@ -14,6 +14,8 @@ export default function DocumentList() {
     const isNew     = useSelector(getNewDoc);
     const saveDb    = useSelector(getSaveDb);
     const [items, setItems] = useState([]);
+    const [del, setDel] = useState(false);
+    const [firstDoc, setFirstDoc] = useState(true);
 
     useEffect(() => {
         if (authData.username !== '') {
@@ -21,17 +23,20 @@ export default function DocumentList() {
                 const data = await getAllItems(authData.username);
                 if (data.length > 0) {
                     dispatch(documentSlice.actions.setNewDoc(false));
-                    dispatch(documentSlice.actions.setDocId(data.length - 1));
+                    if (firstDoc) {
+                        dispatch(documentSlice.actions.setDocId(data[0].document_id));
+                        setFirstDoc(false);
+                    }
                 } else {
                     dispatch(documentSlice.actions.setNewDoc(true));
                 }
                 setItems(data);
             };
             getItemsDoc();
-            return;
+        } else {
+            setItems([]);
         }
-        setItems([]);
-    }, [authData, saveDb, docId]);
+    }, [authData, saveDb, del]);
 
     function createDoc() {
         if (docValue === '')
@@ -39,6 +44,7 @@ export default function DocumentList() {
         else
             dispatch(documentSlice.actions.setDocValue(''));
         dispatch(documentSlice.actions.setNewDoc(true));
+        dispatch(documentSlice.actions.setDocId(-1));
     }
 
     async function deleteDoc(id) {
@@ -49,6 +55,7 @@ export default function DocumentList() {
                 dispatch(documentSlice.actions.setDocValue(''));
         } else {
             const response = await deleteDocById(id);
+            setDel(!del);
             if (docId === id) {
                 if (items.length < 2) {
                     dispatch(documentSlice.actions.setDocId(-1));
