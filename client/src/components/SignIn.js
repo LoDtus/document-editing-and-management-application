@@ -3,6 +3,8 @@ import { useSetAuthCredentials } from "../utils/api";
 import { Input } from 'antd';
 import { checkSignIn } from "../utils/userService";
 import { getCurrentTime } from "../utils/functions";
+import { useDispatch } from "react-redux";
+import documentSlice from "../slices/documentSlice";
 
 export default function SignIn({signin, setSignin, setSignup}) {
     const [username, setUsername] = useState('');

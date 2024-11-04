@@ -1,31 +1,62 @@
 import { useEffect, useState } from 'react'
 import DocumentItem from './DocumentItem';
-import { getAllItems } from '../utils/documentService';
+import { deleteDocById, getAllItems } from '../utils/documentService';
 import { useDispatch, useSelector } from 'react-redux';
 import documentSlice from '../slices/documentSlice';
-import { getAuth, getNewDoc } from '../redux/selectors';
+import { getAuth, getDocId, getDocValue, getNewDoc, getSaveDb } from '../redux/selectors';
 import { getCurrentTime } from '../utils/functions';
 
 export default function DocumentList() {
     const dispatch  = useDispatch();
+    const docId     = useSelector(getDocId);
+    const docValue  = useSelector(getDocValue);
     const authData  = useSelector(getAuth);
     const isNew     = useSelector(getNewDoc);
+    const saveDb    = useSelector(getSaveDb);
     const [items, setItems] = useState([]);
 
     useEffect(() => {
         if (authData.username !== '') {
             async function getItemsDoc() {
                 const data = await getAllItems(authData.username);
+                if (data.length > 0) {
+                    dispatch(documentSlice.actions.setNewDoc(false));
+                    dispatch(documentSlice.actions.setDocId(data.length - 1));
+                } else {
+                    dispatch(documentSlice.actions.setNewDoc(true));
+                }
                 setItems(data);
             };
             getItemsDoc();
             return;
         }
         setItems([]);
-    }, [authData]);
+    }, [authData, saveDb, docId]);
 
     function createDoc() {
+        if (docValue === '')
+            dispatch(documentSlice.actions.setDocValue(' '));
+        else
+            dispatch(documentSlice.actions.setDocValue(''));
         dispatch(documentSlice.actions.setNewDoc(true));
+    }
+
+    async function deleteDoc(id) {
+        if (id === -1) {
+            if (docValue === '')
+                dispatch(documentSlice.actions.setDocValue(' '));
+            else
+                dispatch(documentSlice.actions.setDocValue(''));
+        } else {
+            const response = await deleteDocById(id);
+            if (docId === id) {
+                if (items.length < 2) {
+                    dispatch(documentSlice.actions.setDocId(-1));
+                } else {
+                    dispatch(documentSlice.actions.setDocId(items[items.length - 2].document_id));
+                }
+            }
+        }
     }
 
     return (
@@ -49,6 +80,7 @@ export default function DocumentList() {
                         saved={false}
                         subject={"Untitled"}
                         modifyAt={getCurrentTime()}
+                        deleteDoc={deleteDoc}
                     />
                 }
                 {items.length !== 0 && items.map((e, i) => (
@@ -58,6 +90,7 @@ export default function DocumentList() {
                         saved={true}
                         subject={e.subject}
                         modifyAt={e.modify_at}
+                        deleteDoc={deleteDoc}
                     />
                 ))}
             </div>

@@ -30,17 +30,16 @@ export function useSetAuthCredentials(username, password, remmemberMe, signinAt)
 
 instance.interceptors.request.use(
     function (config) {
-        console.log(auth.username);
-        console.log(auth.password);
-        console.log(config.method);
-        console.log(config.url);
+        // console.log(config.method);
+        // console.log(config.url);
+        // console.log(auth.username);
+        // console.log(auth.password);
         if (    (config.method === "get"    && !["/users/"].some(ignore => config.url.includes(ignore)) )
             ||  (config.method === "post"   && !["/users"].some(ignore => config.url.includes(ignore)) )
             ||  (config.method === "put")
             ||  (config.method === "delete")
         ) {
-            console.log(1);
-            
+            // console.log("Auth");
             config.auth = {
                 username: auth.username,
                 password: auth.password,

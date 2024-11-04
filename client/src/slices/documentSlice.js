@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export default createSlice({
     name: 'document',
     initialState: {
-        documentId: null,
+        documentId: -1,
         value: '',
         isNew: true,
         isPreview: false,

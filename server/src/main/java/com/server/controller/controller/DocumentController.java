@@ -42,10 +42,10 @@ public class DocumentController {
     }
 
     @PostMapping("/documents")
-    public Document addDocument(@RequestBody Document document) {
+    public int addDocument(@RequestBody Document document) {
         document.setDocument_id(0);
         Document dbDocument = documentService.save(document);
-        return dbDocument;
+        return dbDocument.getDocument_id();
     }
 
     @PutMapping("/documents")

@@ -9,7 +9,7 @@ import { addDoc, getDocById, updateDoc } from "../utils/documentService";
 
 export default function Editor() {
     const dispatch  = useDispatch();
-    const userId    = useSelector(getAuth);
+    const userId    = useSelector(getAuth).username;
     const docId     = useSelector(getDocId);
     const docValue  = useSelector(getDocValue);
     const isNew     = useSelector(getNewDoc);
@@ -18,11 +18,15 @@ export default function Editor() {
     const [value, setValue] = useState('');
 
     useEffect(() => {
-        if (docId === null)
+        if (docId === -1) {
+            if (docValue === '')
+                dispatch(documentSlice.actions.setDocValue(' '));
+            else
+                dispatch(documentSlice.actions.setDocValue(''));
             return;
+        }
         async function getDocValue(id) {
             const data = await getDocById(id);
-            console.log(data);
             dispatch(documentSlice.actions.setDocValue(data.content));
         }
         getDocValue(docId);
@@ -39,14 +43,6 @@ export default function Editor() {
         }
     }, [isPreview]);
 
-    async function saveDoc(documentId, userId, subject, content, modifyAt) {
-        if (documentId === -1) {
-            return await addDoc(userId, subject, content, modifyAt);
-        } else {
-            return await updateDoc(documentId, userId, subject, content, modifyAt);
-        }
-    }
-
     useEffect(() => {
         if (!saveDb)
             return;
@@ -58,8 +54,17 @@ export default function Editor() {
         const content   = value;
         const modifyAt  = getCurrentTime();
 
-        const response = saveDoc(docId, userId, subject, content, modifyAt);
-        console.log(response);
+        async function saveDocument() {
+            let response;
+            if (docId === -1) {
+                response = await addDoc(userId, subject, content, modifyAt);
+                dispatch(documentSlice.actions.setDocId(response));
+            } else {
+                response = await updateDoc(docId, userId, subject, content, modifyAt);
+            }
+            dispatch(documentSlice.actions.setSaveDb(false));
+        };
+        saveDocument();
     }, [saveDb]);
 
     return (

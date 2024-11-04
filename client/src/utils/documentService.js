@@ -22,7 +22,7 @@ export const addDoc = async (userId, subject, content, modifyAt) => {
         "content": content,
         "modify_at": modifyAt
     });
-    return (response.status === 200) ? true : false;
+    return response.data;
 }
 
 export const updateDoc = async (documentId, userId, subject, content, modifyAt) => {
@@ -33,10 +33,10 @@ export const updateDoc = async (documentId, userId, subject, content, modifyAt) 
         "content": content,
         "modify_at": modifyAt
     });
-    return (response.status === 200) ? true : false;
+    return response.status === 200;
 }
 
 export const deleteDocById = async (documentId) => {
-    const response = await instance.delete(`/document/${documentId}`);
+    const response = await instance.delete(`/documents/${documentId}`);
     return response.data;
 }
