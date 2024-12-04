@@ -70,7 +70,7 @@ export default function SignIn({signin, setSignin, setSignup}) {
                     className='p-3 w-full text-white font-semibold bg-[#0b57d4] rounded-md mb-2
                     duration-200 hover:cursor-pointer hover:bg-[#696fa7] active:scale-90'
                     onClick={signIn}>
-                    Sign Up
+                    Sign In
                 </button>
                 <div>
                     <span>Don't have an account?</span>

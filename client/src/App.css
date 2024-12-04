@@ -53,6 +53,10 @@
     }
 }
 
+* {
+    
+}
+
 p, span, div, a {
     font-size: clamp(0.75rem, 0.68rem + 0.2667vw, 1rem);
 }

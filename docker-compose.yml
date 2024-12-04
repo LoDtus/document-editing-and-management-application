@@ -1,0 +1,39 @@
+version: '3'
+services:
+  database:
+    image: postgres:16
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: document-db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
+    ports:
+      - "5433:5432"
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: server_container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    env_file:
+      - ./server/.env
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: client_container
+    ports:
+      - "3000:80"
+    depends_on:
+      - server
+
+volumes:
+  db_data:
